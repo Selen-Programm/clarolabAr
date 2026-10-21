@@ -143,6 +143,12 @@
       z-index: 1;
     }
 
+    .scene-wrap.active {
+      position: fixed;
+      z-index: 10;
+      background: #020504;
+    }
+
     a-scene {
       width: 100%;
       height: 100%;
@@ -274,6 +280,81 @@
       font-weight: 500;
     }
 
+    .entry-controls {
+      position: absolute;
+      z-index: 4;
+      top: clamp(20rem, 47vh, 31rem);
+      left: clamp(1.25rem, 7vw, 7rem);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .5rem;
+      width: min(38rem, 52vw);
+    }
+
+    .entry-controls label {
+      color: var(--muted);
+      font-size: .64rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .entry-controls select,
+    .entry-controls input {
+      min-height: 40px;
+      padding: .55rem .7rem;
+      color: var(--paper);
+      background: #0b1110;
+      border: 1px solid var(--line);
+    }
+
+    .entry-controls select { min-width: min(19rem, 100%); }
+    .entry-controls input[type="number"] { width: 4.2rem; }
+    .entry-controls input[type="file"] { max-width: 100%; font-size: .68rem; }
+
+    .primary-button {
+      min-height: 42px;
+      padding: .7rem 1rem;
+      color: #04110d;
+      background: var(--green);
+      border: 0;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .primary-button:hover { background: var(--mint); }
+    .entry-note { flex-basis: 100%; max-width: 34rem; margin: .2rem 0 0; color: #83918b; font-size: .68rem; line-height: 1.45; }
+
+    .qr-card {
+      position: absolute;
+      z-index: 4;
+      top: 2rem;
+      right: clamp(1.25rem, 6vw, 6rem);
+      display: grid;
+      justify-items: center;
+      gap: .5rem;
+      width: 132px;
+      padding: .8rem;
+      border: 1px solid var(--line);
+      background: rgba(7, 12, 10, .88);
+      text-align: center;
+    }
+
+    .qr-card strong { color: var(--green); font-size: .58rem; letter-spacing: .15em; }
+    .qr-card small { color: var(--muted); font-size: .58rem; line-height: 1.4; }
+    #qrCode { display: grid; place-items: center; width: 104px; height: 104px; padding: 5px; background: white; }
+    #qrCode img, #qrCode canvas { width: 94px !important; height: 94px !important; }
+    .qr-placeholder { color: #44504a; font: .6rem ui-monospace, monospace; }
+
+    .ar-hud { position: absolute; z-index: 11; inset: 0; pointer-events: none; }
+    .ar-topline { position: absolute; top: max(1rem, env(safe-area-inset-top)); left: 1rem; right: 1rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .ar-status { padding: .7rem .9rem; color: white; background: rgba(5, 12, 10, .82); border: 1px solid var(--line); font-size: .72rem; backdrop-filter: blur(10px); }
+    .ar-close { min-height: 40px; padding: .55rem .85rem; color: var(--paper); background: rgba(5, 12, 10, .85); border: 1px solid var(--line); pointer-events: auto; cursor: pointer; }
+    .scene-wrap.active ~ .detail-card { position: fixed; z-index: 12; left: clamp(1rem, 5vw, 4rem); bottom: max(1rem, env(safe-area-inset-bottom)); width: min(22rem, 48vw); padding: 1rem 1.1rem; pointer-events: none; }
+
     .explore {
       color: var(--green);
       text-decoration: none;
@@ -364,6 +445,16 @@
         line-height: 1.5;
         font-size: .58rem;
       }
+
+      .entry-controls { top: 20rem; left: 1.25rem; width: calc(100% - 2.5rem); gap: .4rem; }
+      .entry-controls select { width: 100%; }
+      .entry-note { max-width: 25rem; font-size: .61rem; }
+      .qr-card { top: auto; right: 1.25rem; bottom: 4.5rem; width: 88px; padding: .45rem; gap: .35rem; }
+      #qrCode { width: 70px; height: 70px; }
+      #qrCode img, #qrCode canvas { width: 62px !important; height: 62px !important; }
+      .qr-card small { font-size: .52rem; }
+      .scene-wrap.active ~ .detail-card { left: 1rem; width: calc(100% - 2rem); }
+      .scene-wrap.active ~ .detail-card { left: 1rem; bottom: max(1rem, env(safe-area-inset-bottom)); width: min(20rem, calc(100% - 2rem)); padding: .85rem .95rem; }
 
       .hero {
         min-height: calc(100svh - 62px);

@@ -7,6 +7,8 @@
   <meta name="theme-color" content="#050706">
   <title>Archivo Vivo — Museo Clarolab</title>
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <link rel="stylesheet" href="./museo.css">
 </head>
 
@@ -27,7 +29,28 @@
           una nueva historia.</p>
       </div>
 
-      <div class="scene-wrap" aria-label="Recorrido 3D por la colección de computadoras clásicas">
+      <div class="entry-controls" aria-label="Configurar el escaneo del museo">
+        <label for="mindSource">Archivo de targets MindAR</label>
+        <select id="mindSource">
+          <option value="./images/targets.mind">Colección base · images/targets.mind</option>
+          <option value="./puerta-small/puerta2.mind">Marcadores puerta · puerta2.mind</option>
+          <option value="./puerta-small/varias_puerta.mind">Marcadores puerta · varias_puerta.mind</option>
+        </select>
+        <label for="targetIndex">Índice</label>
+        <input id="targetIndex" type="number" min="0" max="99" value="0" aria-label="Índice del target dentro del archivo .mind">
+        <label class="file-label" for="mindUpload">o cargar .mind</label>
+        <input id="mindUpload" type="file" accept=".mind,application/octet-stream" aria-label="Cargar un archivo .mind">
+        <button id="startAR" class="primary-button" type="button">Abrir cámara AR</button>
+        <p class="entry-note" id="entryNote">El QR abre este museo; después MindAR busca una imagen incluida en el .mind. Para mapear las piezas, compilá sus fotos en este orden: Apple IIe (0), Commodore 64 (1), DPC-200 (2), PowerBook 170 (3), Asteroids (4). La cámara requiere HTTPS.</p>
+      </div>
+
+      <aside class="qr-card" aria-label="QR de acceso al museo">
+        <strong>QR DE ACCESO</strong>
+        <div id="qrCode"><span class="qr-placeholder">URL HTTPS</span></div>
+        <small id="qrHint">Publicá el museo para generar un QR que se abra desde el teléfono.</small>
+      </aside>
+
+      <div class="scene-wrap" id="sceneWrap" aria-label="Realidad aumentada del museo">
         <a-scene embedded background="color: #050706" renderer="colorManagement: true; antialias: true; alpha: true"
           vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
           <a-assets>
@@ -37,6 +60,7 @@
             <img id="powerbook170" src="./images/prueba/mac.jpg" crossorigin="anonymous">
             <img id="asteroids" src="./images/atari.png" crossorigin="anonymous">
           </a-assets>
+          <a-entity id="trackingTarget">
           <a-entity id="museumRig" position="0 0 0">
             <a-entity helix-spine></a-entity>
             <a-torus position="0 0 0" radius="0.22" radius-tubular="0.007" rotation="90 0 0"
@@ -84,9 +108,13 @@
                 material="color: #00e6a0; shader: flat; side: double"></a-plane>
             </a-entity>
           </a-entity>
+          </a-entity>
           <a-camera id="museumCamera" position="0 0 6.6" look-controls="enabled: false" wasd-controls="enabled: false"
             cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .clickable; far: 20"></a-camera>
         </a-scene>
+        <div class="ar-hud">
+          <div class="ar-topline"><div class="ar-status" id="arStatus" role="status">Preparando cámara…</div><button id="closeAR" class="ar-close" type="button">Cerrar AR</button></div>
+        </div>
       </div>
 
       <aside class="detail-card" aria-live="polite">
@@ -177,9 +205,26 @@
     const scene = document.querySelector('a-scene');
     const rig = document.getElementById('museumRig');
     const camera = document.getElementById('museumCamera');
+    const trackingTarget = document.getElementById('trackingTarget');
+    const sceneWrap = document.getElementById('sceneWrap');
+    const mindSource = document.getElementById('mindSource');
+    const targetIndexInput = document.getElementById('targetIndex');
+    const mindUpload = document.getElementById('mindUpload');
+    const qrCode = document.getElementById('qrCode');
+    const qrHint = document.getElementById('qrHint');
+    const arStatus = document.getElementById('arStatus');
     let selected = 0;
     let dragStart = null;
     let baseRotation = 0;
+    let customMindUrl = '';
+    let arActive = false;
+    let activeTargetIndex = 0;
+
+    const launchParams = new URLSearchParams(location.search);
+    const launchMind = launchParams.get('mind');
+    const launchIndex = Number.parseInt(launchParams.get('target') || '0', 10);
+    if (launchMind && [...mindSource.options].some((option) => option.value === launchMind)) mindSource.value = launchMind;
+    if (Number.isInteger(launchIndex) && launchIndex >= 0) targetIndexInput.value = String(launchIndex);
 
     function selectExhibit(index) {
       selected = (index + exhibits.length) % exhibits.length;
@@ -194,9 +239,141 @@
       });
     }
 
-    scene.addEventListener('loaded', () => {
+    function currentAccessUrl() {
+      const url = new URL(location.href);
+      url.searchParams.set('mind', mindSource.value);
+      url.searchParams.set('target', String(Math.max(0, Number.parseInt(targetIndexInput.value || '0', 10))));
+      return url.toString();
+    }
+
+    function refreshQr() {
+      qrCode.replaceChildren();
+      const isSecure = location.protocol === 'https:';
+      if (customMindUrl) {
+        qrCode.innerHTML = '<span class="qr-placeholder">.mind local</span>';
+        qrHint.textContent = 'El QR solo puede compartir archivos .mind publicados en el sitio.';
+        return;
+      }
+      if (!isSecure) {
+        qrCode.innerHTML = '<span class="qr-placeholder">HTTPS</span>';
+        qrHint.textContent = 'Publicá en HTTPS para generar un QR de acceso que funcione en el teléfono.';
+        return;
+      }
+      if (typeof QRCode === 'undefined') {
+        qrCode.innerHTML = '<span class="qr-placeholder">SIN QR</span>';
+        qrHint.textContent = 'No se pudo cargar el generador QR.';
+        return;
+      }
+      new QRCode(qrCode, { text: currentAccessUrl(), width: 128, height: 128, colorDark: '#06110d', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+      qrHint.textContent = 'Escaneá para abrir el museo con este .mind y target.';
+    }
+
+    async function openAR() {
+      if (arActive) return;
+      if (!scene.hasLoaded) await new Promise((resolve) => scene.addEventListener('loaded', resolve, { once: true }));
+      const targetIndex = Math.max(0, Number.parseInt(targetIndexInput.value || '0', 10));
+      activeTargetIndex = targetIndex;
+      const source = customMindUrl || mindSource.value;
+      if (!source) {
+        arStatus.textContent = 'Elegí un archivo .mind para continuar.';
+        sceneWrap.classList.add('active');
+        return;
+      }
+      sceneWrap.classList.add('active');
+      camera.setAttribute('position', '0 0 0');
+      rig.setAttribute('scale', '.36 .36 .36');
+      window.dispatchEvent(new Event('resize'));
+      arStatus.textContent = 'Preparando el target…';
+      document.getElementById('startAR').disabled = true;
+      try {
+        scene.setAttribute('mindar-image', {
+          imageTargetSrc: source,
+          autoStart: false,
+          filterMinCF: 0.00005,
+          filterBeta: 0.01,
+          warmupTolerance: 5,
+          missTolerance: 10,
+          maxTrack: 1
+        });
+        trackingTarget.setAttribute('mindar-image-target', `targetIndex: ${targetIndex}`);
+        trackingTarget.removeEventListener('targetFound', onTargetFound);
+        trackingTarget.removeEventListener('targetLost', onTargetLost);
+        trackingTarget.addEventListener('targetFound', onTargetFound);
+        trackingTarget.addEventListener('targetLost', onTargetLost);
+        scene.addEventListener('arReady', () => {
+          arStatus.textContent = `Cámara lista · apuntá al target ${targetIndex} del .mind`;
+        }, { once: true });
+        scene.addEventListener('arError', () => {
+          arStatus.textContent = 'No se pudo abrir la cámara. Usá HTTPS y habilitá el permiso.';
+        }, { once: true });
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        const arSystem = scene.systems['mindar-image-system'];
+        if (!arSystem) throw new Error('No se pudo inicializar MindAR. Revisá la conexión a internet.');
+        await arSystem.start();
+        arActive = true;
+        document.getElementById('closeAR').focus({ preventScroll: true });
+      } catch (error) {
+        console.error('No se pudo iniciar MindAR:', error);
+        arStatus.textContent = error.message || 'No se pudo iniciar MindAR. Revisá el archivo .mind y los permisos.';
+        document.getElementById('startAR').disabled = false;
+      }
+    }
+
+    function onTargetFound() {
+      arStatus.textContent = 'Objeto detectado · espiral anclada';
+      selectExhibit(activeTargetIndex % exhibits.length);
+    }
+
+    function onTargetLost() {
+      arStatus.textContent = `Buscando la imagen ${activeTargetIndex} del archivo .mind…`;
+    }
+
+    async function closeAR() {
+      const arSystem = scene.systems['mindar-image-system'];
+      if (arSystem) {
+        try { await arSystem.stop(); } catch (error) { console.warn('MindAR ya estaba detenido:', error); }
+      }
+      trackingTarget.removeAttribute('mindar-image-target');
+      trackingTarget.removeEventListener('targetFound', onTargetFound);
+      trackingTarget.removeEventListener('targetLost', onTargetLost);
+      scene.removeAttribute('mindar-image');
+      sceneWrap.classList.remove('active');
+      camera.setAttribute('position', '0 0 6.6');
+      rig.setAttribute('scale', '1 1 1');
+      window.dispatchEvent(new Event('resize'));
+      arActive = false;
+      document.getElementById('startAR').disabled = false;
+      arStatus.textContent = 'Preparando cámara…';
+    }
+
+    mindSource.addEventListener('change', () => {
+      if (customMindUrl) URL.revokeObjectURL(customMindUrl);
+      customMindUrl = '';
+      mindUpload.value = '';
+      refreshQr();
+    });
+    targetIndexInput.addEventListener('input', refreshQr);
+    mindUpload.addEventListener('change', () => {
+      const file = mindUpload.files?.[0];
+      if (!file) return;
+      if (!file.name.toLowerCase().endsWith('.mind')) {
+        document.getElementById('entryNote').textContent = 'Seleccioná un archivo con extensión .mind.';
+        mindUpload.value = '';
+        return;
+      }
+      if (customMindUrl) URL.revokeObjectURL(customMindUrl);
+      customMindUrl = URL.createObjectURL(file);
+      document.getElementById('entryNote').textContent = `${file.name} listo. Elegí el índice del objeto que vas a escanear y abrí la cámara.`;
+      refreshQr();
+    });
+    document.getElementById('startAR').addEventListener('click', openAR);
+    document.getElementById('closeAR').addEventListener('click', closeAR);
+    refreshQr();
+
+    function attachPreviewControls() {
       document.querySelectorAll('.artifact').forEach((card, index) => {
         card.addEventListener('click', () => selectExhibit(index));
+        card.querySelectorAll('a-plane').forEach((plane) => plane.classList.add('clickable'));
       });
       const canvas = scene.canvas;
       canvas.addEventListener('pointerdown', (event) => {
@@ -213,6 +390,7 @@
       canvas.addEventListener('pointerup', release);
       canvas.addEventListener('pointercancel', release);
       canvas.addEventListener('wheel', (event) => {
+        if (arActive) return;
         event.preventDefault();
         const direction = Math.sign(event.deltaY);
         camera.object3D.position.z = Math.min(8, Math.max(4.8, camera.object3D.position.z + direction * .22));
@@ -221,7 +399,9 @@
         const dot = event.target.closest('[data-index]');
         if (dot) selectExhibit(Number(dot.dataset.index) - 1);
       });
-    });
+    }
+    if (scene.hasLoaded) attachPreviewControls();
+    else scene.addEventListener('loaded', attachPreviewControls, { once: true });
   </script>
 </body>
 
