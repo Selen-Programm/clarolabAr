@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+</head>
+<body>
+<a-scene
+        mindar-image="imageTargetSrc: ./targets.mind;"
+        color-space="sRGB"
+        renderer="colorManagement: true, physicallyCorrectLights"
+        vr-mode-ui="enabled: false"
+        device-orientation-permission-ui="enabled: false"
+>
+  <a-assets>
+    <img id="card" src="./make_software.jpg" />
+    <a-asset-item id="laptop" src="./gltf/laptop_free/scene.gltf"></a-asset-item>
+  </a-assets>
+
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+  <!-- IMG_1 -->
+  <a-entity mindar-image-target="targetIndex: 0">
+    <a-gltf-model
+            rotation="0 0 0"
+            position="0 -0.25 0"
+            scale="0.005 0.005 0.005"
+            src="#laptop"
+            animation-mixer
+    ></a-gltf-model>
+  </a-entity>
+  <!-- IMG_2 -->
+  <a-entity mindar-image-target="targetIndex: 1">
+    <a-plane
+            src="#card"
+            position="0 0 0"
+            height="1.5"
+            width="1"
+            rotation="0 0 0"
+    ></a-plane>
+  </a-entity>
+  <!-- IMG_3 -->
+  <a-entity
+          mindar-image-target="targetIndex: 2"
+          visible="false"
+          id="videoContainer"
+  >
+    <a-video
+            id="video"
+            src="sample.mp4"
+            position="0 0 0"
+            height="1.5"
+            width="1"
+            rotation="0 0 0"
+            autoplay="false"
+            loop="true"
+            crossorigin="anonymous"
+    ></a-video>
+  </a-entity>
+</a-scene>
+
+<button id="playButton" onclick="toggleVideo()">Play</button>
+
+<script>
+  const videoContainer = document.getElementById('videoContainer');
+  const videoEl = document.getElementById('video');
+  const marker = document.querySelector('[mindar-image-target="targetIndex: 2"]');
+  const playButton = document.getElementById('playButton');
+  let isPlaying = false;
+
+  marker.addEventListener('markerFound', function () {
+    videoContainer.setAttribute('visible', 'true');
+  });
+
+  marker.addEventListener('markerLost', function () {
+    videoContainer.setAttribute('visible', 'false');
+    videoEl.pause();
+    isPlaying = false;
+    playButton.innerText = 'Play';
+  });
+
+  function toggleVideo() {
+    if (isPlaying) {
+      videoEl.pause();
+      isPlaying = false;
+      playButton.innerText = 'Play';
+    } else {
+      videoEl.play();
+      isPlaying = true;
+      playButton.innerText = 'Pause';
+    }
+  }
+</script>
+</body>
+</html>

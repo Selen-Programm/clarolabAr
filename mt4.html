@@ -1,0 +1,51 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Libreria MindAR-->
+  <script src="https://aframe.io/releases/1.7.11/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.5/dist/mindar-image.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.5/dist/mindar-image-aframe.prod.js"></script>
+  <!-- Libreria de A-Frame que nos permite utilizar gifs en nuestros proyectos de realidad aumentada -->
+  <script src="./aframe-gif-shader.min.js"></script>
+</head>
+<body>
+<a-scene mindar-image="imageTargetSrc: ./targets_puerta.mind; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights"
+         vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+  <a-assets>
+    <img id="pet1" src="./images/1.png" />
+    <img id="pet2" src="./images/3.png" />
+    <img id="pet3" src="./images/6.png" />
+    <img id="pet4" src="./images/7.png" />
+    <img id="pet5" src="./images/8.png" />
+    <img id="pet6" src="./images/11.png" />
+    <img id="pet7" src="./images/12.png" />
+  </a-assets>
+
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+  <!-- Tetris -->
+  <a-entity mindar-image-target="targetIndex: 0">
+    <a-marker preset="custom" type="pattern" url="./targets_puerta.mind"></a-marker>
+    <a-image src="#pet2" position="0 1.1 -1" height="1.5" width="1"></a-image>
+    <a-image src="#pet4" position="-0.5 0 -1" height="1.5" width="1"></a-image>
+    <a-image src="#pet5" position="0.2 0 -0.9" height="1.5" width="1"></a-image>
+     <a-plane position="0.2 0.4 -1" scale="1.5 1.5 1.5" material="shader: gif; src: url(./images/img-utiles/tetris.gif)"></a-plane>
+  </a-entity> 
+
+  <!-- Puerta -->
+  <a-entity mindar-image-target="targetIndex: 1">
+    <a-marker preset="custom" type="pattern" url="./targets_puerta.mind"></a-marker>
+    <a-image src="#pet1" position="0.4 0.4 0" height="1.5" width="1"></a-image>
+    <a-image src="#pet6" position="-1.3 0.6 0" height="2.5" width="2"></a-image>
+    <a-image src="#pet7" position="0 0.2 0.1" height="1.5" width="1"></a-image>
+  </a-entity>
+  
+  <!-- Logo -->
+  <a-entity mindar-image-target="targetIndex: 2">
+    <a-marker preset="custom" type="pattern" url="./targets_puerta.mind"></a-marker>
+    <a-plane position="0.4 0.4 -1" scale="1.5 1.5 1.5" material="shader: gif; src: url(./images/nene_jugando.gif)"></a-plane>
+    <a-image src="#pet3" position="-0.2 0 0" height="1.5" width="1"></a-image>
+  </a-entity>
+</a-scene>
+</body>
+</html>
