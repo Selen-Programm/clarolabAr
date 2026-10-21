@@ -41,7 +41,7 @@
         <label class="file-label" for="mindUpload">o cargar .mind</label>
         <input id="mindUpload" type="file" accept=".mind,application/octet-stream" aria-label="Cargar un archivo .mind">
         <button id="startAR" class="primary-button" type="button">Abrir cámara AR</button>
-        <p class="entry-note" id="entryNote">El QR abre este museo; después MindAR busca una imagen incluida en el .mind. Para mapear las piezas, compilá sus fotos en este orden: Apple IIe (0), Commodore 64 (1), DPC-200 (2), PowerBook 170 (3), Asteroids (4). La cámara requiere HTTPS.</p>
+        <p class="entry-note" id="entryNote">El QR abre este museo; después MindAR busca una imagen incluida en el .mind. Para mapear las piezas, compilá sus fotos en este orden: Apple IIe (0), Commodore 64 (1), DPC-200 (2), PowerBook 170 (3), Asteroids (4). Abrí el museo desde HTTPS o localhost para usar la cámara.</p>
       </div>
 
       <aside class="qr-card" aria-label="QR de acceso al museo">
@@ -270,6 +270,11 @@
 
     async function openAR() {
       if (arActive) return;
+      if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+        sceneWrap.classList.add('active');
+        arStatus.textContent = 'La cámara necesita HTTPS o localhost. Abrí iniciar-museo.bat.';
+        return;
+      }
       if (!scene.hasLoaded) await new Promise((resolve) => scene.addEventListener('loaded', resolve, { once: true }));
       const targetIndex = Math.max(0, Number.parseInt(targetIndexInput.value || '0', 10));
       activeTargetIndex = targetIndex;
@@ -303,8 +308,9 @@
         scene.addEventListener('arReady', () => {
           arStatus.textContent = `Cámara lista · apuntá al target ${targetIndex} del .mind`;
         }, { once: true });
-        scene.addEventListener('arError', () => {
-          arStatus.textContent = 'No se pudo abrir la cámara. Usá HTTPS y habilitá el permiso.';
+        scene.addEventListener('arError', (event) => {
+          const reason = event.detail?.error?.message || event.detail?.error || '';
+          arStatus.textContent = reason ? `MindAR: ${reason}` : 'No se pudo iniciar la cámara. Revisá permisos y conexión.';
         }, { once: true });
         await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         const arSystem = scene.systems['mindar-image-system'];
@@ -314,7 +320,14 @@
         document.getElementById('closeAR').focus({ preventScroll: true });
       } catch (error) {
         console.error('No se pudo iniciar MindAR:', error);
-        arStatus.textContent = error.message || 'No se pudo iniciar MindAR. Revisá el archivo .mind y los permisos.';
+        const message = String(error?.message || error || '');
+        if (/permission|denied|notallowed/i.test(message)) {
+          arStatus.textContent = 'Permiso de cámara bloqueado. Permitilo en el navegador y volvé a intentar.';
+        } else if (/fetch|load|404|network/i.test(message)) {
+          arStatus.textContent = 'No se pudo cargar el .mind. Revisá la conexión y la ruta del archivo.';
+        } else {
+          arStatus.textContent = message || 'No se pudo iniciar MindAR. Revisá los permisos de cámara.';
+        }
         document.getElementById('startAR').disabled = false;
       }
     }
