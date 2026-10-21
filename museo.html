@@ -21,27 +21,33 @@
   </header>
 
   <main>
-    <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <section class="welcome" id="inicio" aria-labelledby="welcome-title">
+      <div class="welcome-copy">
+        <div class="eyebrow">CLAROLAB · JUNÍN, ARGENTINA</div>
+        <h1 id="welcome-title">Una puerta. <span>Muchas formas de crear.</span></h1>
+        <p>Este recorrido transforma la puerta de Clarolab y las ilustraciones de su mascota en un mapa interactivo. Escaneá sus marcadores y descubrí cómo el equipo desarrolla software, lo pone a prueba, lo protege y explora nuevas ideas.</p>
+        <a class="primary-button welcome-cta" href="#recorrido">Conocer el recorrido <span aria-hidden="true">↓</span></a>
+        <div class="welcome-caption"><span class="pulse-dot"></span> Puerta + mascota: 23 señales · 5 capítulos</div>
+      </div>
+      <div class="welcome-figure" aria-label="La mascota de Clarolab te acompaña durante el recorrido">
+        <div class="figure-orbit orbit-one"></div><div class="figure-orbit orbit-two"></div>
+        <img id="guideMascot" src="./images/img-utiles/6.png" alt="Mascota ilustrada de Clarolab">
+        <div class="mascot-note"><span>HOLA, SOY TU GUÍA</span><b>Seguime. Hay mucho por descubrir.</b></div>
+      </div>
+      <div class="welcome-index"><span>01</span> / BIENVENIDA</div>
+    </section>
+
+    <section class="hero" id="recorrido" aria-labelledby="hero-title">
       <div class="intro">
-        <div class="eyebrow">Museo de computación · Vol. 01</div>
-        <h1 id="hero-title">El futuro también <span>tiene memoria.</span></h1>
-        <p>Un recorrido por las máquinas que acercaron la tecnología a nuestras casas. Cada vuelta de la espiral revela
-          una nueva historia.</p>
+        <div class="eyebrow">RECORRIDO INTERACTIVO · CLAROLAB</div>
+        <h1 id="hero-title">La puerta se abre. <span>Empieza el recorrido.</span></h1>
+        <p>Apuntá la cámara a cualquiera de las imágenes de la puerta o la mascota. Cada marcador revela una parte del trabajo de Clarolab.</p>
       </div>
 
-      <div class="entry-controls" aria-label="Configurar el escaneo del museo">
-        <label for="mindSource">Archivo de targets MindAR</label>
-        <select id="mindSource">
-          <option value="./images/targets.mind">Colección base · images/targets.mind</option>
-          <option value="./puerta-small/puerta2.mind">Marcadores puerta · puerta2.mind</option>
-          <option value="./puerta-small/varias_puerta.mind">Marcadores puerta · varias_puerta.mind</option>
-        </select>
-        <label for="targetIndex">Índice</label>
-        <input id="targetIndex" type="number" min="0" max="99" value="0" aria-label="Índice del target dentro del archivo .mind">
-        <label class="file-label" for="mindUpload">o cargar .mind</label>
-        <input id="mindUpload" type="file" accept=".mind,application/octet-stream" aria-label="Cargar un archivo .mind">
-        <button id="startAR" class="primary-button" type="button">Abrir cámara AR</button>
-        <p class="entry-note" id="entryNote">El QR abre este museo; después MindAR busca una imagen incluida en el .mind. Para mapear las piezas, compilá sus fotos en este orden: Apple IIe (0), Commodore 64 (1), DPC-200 (2), PowerBook 170 (3), Asteroids (4). Abrí el museo desde HTTPS o localhost para usar la cámara.</p>
+      <div class="entry-controls" aria-label="Iniciar el recorrido del museo">
+        <span class="target-summary"><b>PUERTA + MASCOTA</b><span>23 marcadores en un solo escaneo</span></span>
+        <button id="startAR" class="primary-button" type="button">Iniciar el recorrido <span aria-hidden="true">↗</span></button>
+        <p class="entry-note" id="entryNote">Al iniciar, permití el uso de la cámara. MindAR buscará todos los marcadores de la puerta y la mascota en un único recorrido. Necesitás HTTPS o localhost.</p>
       </div>
 
       <aside class="qr-card" aria-label="QR de acceso al museo">
@@ -51,15 +57,8 @@
       </aside>
 
       <div class="scene-wrap" id="sceneWrap" aria-label="Realidad aumentada del museo">
-        <a-scene embedded background="color: #050706" renderer="colorManagement: true; antialias: true; alpha: true"
+        <a-scene embedded renderer="colorManagement: true; antialias: true; alpha: true"
           vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-          <a-assets>
-            <img id="apple2e" src="./images/prueba/apl2.jpg" crossorigin="anonymous">
-            <img id="commodore64" src="./images/prueba/commodorec2.jpg" crossorigin="anonymous">
-            <img id="dpc200" src="./images/prueba/dpc200.jpg" crossorigin="anonymous">
-            <img id="powerbook170" src="./images/prueba/mac.jpg" crossorigin="anonymous">
-            <img id="asteroids" src="./images/atari.png" crossorigin="anonymous">
-          </a-assets>
           <a-entity id="trackingTarget">
           <a-entity id="museumRig" position="0 0 0">
             <a-entity helix-spine></a-entity>
@@ -67,43 +66,38 @@
               material="color: #00e6a0; shader: flat; opacity: .8; transparent: true"></a-torus>
             <a-sphere position="0 0 0" radius="0.09"
               material="color: #00e6a0; emissive: #00e6a0; emissiveIntensity: .45; shader: standard"></a-sphere>
-            <a-entity class="artifact clickable" data-key="apple" data-index="01">
+            <a-entity class="artifact clickable" data-key="development" data-index="01">
               <a-plane width="0.83" height="0.56" position="0 0 0"
                 material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-plane src="#apple2e" width="0.78" height="0.43" position="0 0.025 0.012"
-                material="shader: flat; side: double"></a-plane>
+              <a-text value="DESARROLLO" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
               <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
                 material="color: #00e6a0; shader: flat; side: double"></a-plane>
             </a-entity>
-            <a-entity class="artifact clickable" data-key="commodore" data-index="02">
+            <a-entity class="artifact clickable" data-key="testing" data-index="02">
               <a-plane width="0.83" height="0.56" position="0 0 0"
                 material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-plane src="#commodore64" width="0.78" height="0.43" position="0 0.025 0.012"
-                material="shader: flat; side: double"></a-plane>
+              <a-text value="TESTING" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
               <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
                 material="color: #00e6a0; shader: flat; side: double"></a-plane>
             </a-entity>
-            <a-entity class="artifact clickable" data-key="dpc" data-index="03">
+            <a-entity class="artifact clickable" data-key="security" data-index="03">
               <a-plane width="0.83" height="0.56" position="0 0 0"
                 material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-plane src="#dpc200" width="0.78" height="0.43" position="0 0.025 0.012"
-                material="shader: flat; side: double"></a-plane>
+              <a-text value="SEGURIDAD" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
               <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
                 material="color: #00e6a0; shader: flat; side: double"></a-plane>
             </a-entity>
-            <a-entity class="artifact clickable" data-key="powerbook" data-index="04">
+            <a-entity class="artifact clickable" data-key="lab" data-index="04">
               <a-plane width="0.83" height="0.56" position="0 0 0"
                 material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-plane src="#powerbook170" width="0.78" height="0.43" position="0 0.025 0.012"
-                material="shader: flat; side: double"></a-plane>
+              <a-text value="LAB CREATION" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
               <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
                 material="color: #00e6a0; shader: flat; side: double"></a-plane>
             </a-entity>
-            <a-entity class="artifact clickable" data-key="asteroids" data-index="05">
+            <a-entity class="artifact clickable" data-key="allies" data-index="05">
               <a-plane width="0.83" height="0.56" position="0 0 0"
                 material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-plane src="#asteroids" width="0.78" height="0.43" position="0 0.025 0.012"
-                material="shader: flat; side: double"></a-plane>
+              <a-text value="EQUIPO" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
               <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
                 material="color: #00e6a0; shader: flat; side: double"></a-plane>
             </a-entity>
@@ -118,43 +112,52 @@
       </div>
 
       <aside class="detail-card" aria-live="polite">
-        <div class="detail-meta"><span id="detail-period">01 / COLECCIÓN</span><span id="detail-year">1983</span></div>
-        <h2 id="detail-title">Apple IIe</h2>
-        <p id="detail-copy">Una de las computadoras que ayudó a llevar la informática desde los laboratorios hasta las
-          aulas y los hogares.</p>
+        <div class="detail-meta"><span id="detail-period">01 / DESARROLLO</span><span id="detail-year">CAPÍTULO</span></div>
+        <h2 id="detail-title">Software con propósito</h2>
+        <p id="detail-copy">Clarolab desarrolla productos de software junto a sus aliados: equipos integrados, soluciones a medida y foco en calidad.</p>
       </aside>
 
-      <nav class="scene-index" aria-label="Piezas de la colección">
+      <nav class="scene-index" aria-label="Capítulos del recorrido">
         <span data-index="01" class="active">01</span><span data-index="02">02</span><span
           data-index="03">03</span><span data-index="04">04</span><span data-index="05">05</span>
       </nav>
-      <div class="interaction-hint"><span class="drag-icon">↔</span><span>Arrastrá para girar · Seleccioná una
-          pieza</span></div>
-      <div class="bottom-bar"><span><b>CLAROLAB</b> · ARCHIVO VIVO</span><a class="explore" href="#coleccion">Explorar
-          la colección ↓</a></div>
+      <div class="interaction-hint"><span class="drag-icon">◎</span><span>Mové la cámara entre todos los marcadores</span></div>
+      <div class="bottom-bar"><span><b>CLAROLAB</b> · PUERTAS ABIERTAS</span><a class="explore" href="#coleccion">Ver los capítulos ↓</a></div>
     </section>
 
     <section class="collection" id="coleccion">
       <div class="collection-head">
         <div>
-          <div class="eyebrow">Una historia en movimiento</div>
-          <h2>De la primera tecla a un mundo conectado.</h2>
+          <div class="eyebrow">LO QUE VAS A DESCUBRIR</div>
+          <h2>Ideas que se convierten en software mejor.</h2>
         </div>
-        <p>Las computadoras no cambiaron solo de tamaño. Cambiaron quién podía crear, jugar, aprender y conectarse. Este
-          archivo celebra esos primeros pasos.</p>
+        <p>Clarolab acompaña a sus aliados a desarrollar y probar productos de software. Cada marcador de la puerta abre una parte de ese trabajo: aprender el producto, crear soluciones y mejorar continuamente.</p>
       </div>
       <div class="collection-grid">
-        <article class="collection-item"><small>01 — COMPUTACIÓN PERSONAL</small>
-          <h3>Una máquina para aprender</h3>
-          <p>Apple IIe · 1983. Tecnología abierta a aulas, familias y una nueva generación de curiosos.</p>
+        <article class="collection-item"><small>01 — DESARROLLO</small>
+          <h3>Construir con intención</h3>
+          <p>Desarrollo de productos con React, Spring Boot, microservicios y Python; soluciones de IA y foco en rendimiento y escala.</p>
         </article>
-        <article class="collection-item"><small>02 — LA CASA COMO LABORATORIO</small>
-          <h3>Crear, jugar, programar</h3>
-          <p>Commodore 64 · 1982. Una computadora doméstica que hizo del teclado una puerta de entrada.</p>
+        <article class="collection-item"><small>02 — TESTING</small>
+          <h3>Calidad desde el principio</h3>
+          <p>Pruebas automatizadas y manuales, integración y entrega continua, análisis de rendimiento y triage.</p>
         </article>
-        <article class="collection-item"><small>03 — INGENIO LOCAL</small>
-          <h3>El MSX también tuvo acento argentino</h3>
-          <p>Talent DPC-200 · Una pieza de la historia regional de la computación y el juego.</p>
+        <article class="collection-item"><small>03 — SEGURIDAD</small>
+          <h3>Confianza que se construye</h3>
+          <p>Análisis estático y dinámico, detección de vulnerabilidades y acompañamiento en prácticas de seguridad.</p>
+        </article>
+        <article class="collection-item"><small>04 — LAB CREATION</small>
+          <h3>Explorar para abrir caminos</h3>
+          <p>Un laboratorio para probar tecnologías, formar ingenieros y transferir resultados de I+D a los aliados.</p>
+        </article>
+        <article class="collection-item"><small>05 — CUSTOMER JOURNEY</small>
+          <h3>Crecer en equipo</h3>
+          <p>Conocer cada producto y trabajar codo a codo con sus equipos para crecer en experiencia y conocimiento.</p>
+        </article>
+        <article class="collection-item mascot-item"><small>+ UNA GUÍA PARA EL CAMINO</small>
+          <h3>La curiosidad también se comparte</h3>
+          <p>La mascota cambia de look a medida que avanzás. En cada marcador, aparece para señalar que hay un nuevo capítulo.</p>
+          <img src="./images/img-utiles/tetris.gif" alt="Animación de Tetris de Clarolab" loading="lazy">
         </article>
       </div>
     </section>
@@ -163,12 +166,15 @@
 
   <script>
     const exhibits = [
-      { key: 'apple', title: 'Apple IIe', year: '1983', category: 'COMPUTACIÓN PERSONAL', copy: 'Una de las computadoras que ayudó a llevar la informática desde los laboratorios hasta las aulas y los hogares.' },
-      { key: 'commodore', title: 'Commodore 64', year: '1982', category: 'LA COMPUTADORA EN CASA', copy: 'Una máquina doméstica que convirtió el teclado en una puerta para programar, aprender y jugar.' },
-      { key: 'dpc', title: 'Talent DPC-200', year: 'MSX · ARGENTINA', category: 'INGENIO LOCAL', copy: 'Una computadora compatible con MSX, parte de una generación que acercó software y videojuegos a nuevos públicos.' },
-      { key: 'powerbook', title: 'Macintosh PowerBook 170', year: '1991', category: 'TECNOLOGÍA PORTÁTIL', copy: 'Una computadora pensada para salir del escritorio: pantalla activa, teclado integrado y una nueva idea de movilidad.' },
-      { key: 'asteroids', title: 'Asteroids', year: 'ATARI · 1981', category: 'JUEGO Y CULTURA', copy: 'Un clásico de arcade convertido en cartucho: el software también forma parte de la memoria material de la computación.' }
+      { group: 0, category: 'DESARROLLO', title: 'Software con propósito', copy: 'Clarolab desarrolla productos junto a sus aliados, con equipos integrados y soluciones pensadas alrededor de cada producto. Trabaja con tecnologías como React, Spring Boot, microservicios y Python, y explora soluciones de IA.' },
+      { group: 1, category: 'TESTING', title: 'Calidad en cada paso', copy: 'Pruebas automatizadas y manuales ayudan a encontrar problemas temprano. Cypress, pruebas de API y Jest se combinan con integración continua, rendimiento y triage para dar confianza en cada entrega.' },
+      { group: 2, category: 'SEGURIDAD', title: 'Confianza desde el código', copy: 'El análisis estático y dinámico permite detectar vulnerabilidades y entender los riesgos del producto para construir prácticas de seguridad sostenibles.' },
+      { group: 3, category: 'LAB CREATION', title: 'Explorar lo que viene', copy: 'LabCreation prueba tecnologías, desarrolla capacidades de ingeniería y transfiere resultados de I+D a los aliados para convertir aprendizaje en soluciones.' },
+      { group: 4, category: 'CUSTOMER JOURNEY', title: 'Crecer codo a codo', copy: 'Clarolab aprende cada producto y acompaña a sus aliados con equipos estables, crecimiento compartido y una cultura que busca generar un impacto positivo.' }
     ];
+
+    let activeMarkerCount = 23;
+    let activeMarkerName = 'puerta y mascota';
 
     AFRAME.registerComponent('helix-spine', {
       init() {
@@ -186,7 +192,7 @@
         const geometry = new THREE.TubeGeometry(path, 360, .012, 7, false);
         const material = new THREE.MeshBasicMaterial({ color: '#00e6a0', transparent: true, opacity: .74 });
         this.el.setObject3D('helix', new THREE.Mesh(geometry, material));
-        const data = [...document.querySelectorAll('.artifact')];
+        const data = [...this.el.parentElement.querySelectorAll('.artifact')];
         data.forEach((card, i) => {
           const t = i / (data.length - 1);
           const angle = t * turns * Math.PI * 2 + .5;
@@ -207,53 +213,89 @@
     const camera = document.getElementById('museumCamera');
     const trackingTarget = document.getElementById('trackingTarget');
     const sceneWrap = document.getElementById('sceneWrap');
-    const mindSource = document.getElementById('mindSource');
-    const targetIndexInput = document.getElementById('targetIndex');
-    const mindUpload = document.getElementById('mindUpload');
+    const scannerSection = document.getElementById('recorrido');
+    const mindSource = './images/clarolab-all.mind';
     const qrCode = document.getElementById('qrCode');
     const qrHint = document.getElementById('qrHint');
     const arStatus = document.getElementById('arStatus');
     let selected = 0;
     let dragStart = null;
     let baseRotation = 0;
-    let customMindUrl = '';
     let arActive = false;
+    let arStarting = false;
+    let arStarted = false;
+    let closeRequested = false;
     let activeTargetIndex = 0;
+    const trackingAnchors = [];
+    let mascotFrame = 6;
+    let mascotTimer = 0;
+    const guideMascot = document.getElementById('guideMascot');
 
-    const launchParams = new URLSearchParams(location.search);
-    const launchMind = launchParams.get('mind');
-    const launchIndex = Number.parseInt(launchParams.get('target') || '0', 10);
-    if (launchMind && [...mindSource.options].some((option) => option.value === launchMind)) mindSource.value = launchMind;
-    if (Number.isInteger(launchIndex) && launchIndex >= 0) targetIndexInput.value = String(launchIndex);
-
-    function selectExhibit(index) {
+    function selectExhibit(index, markerIndex = index) {
       selected = (index + exhibits.length) % exhibits.length;
       const exhibit = exhibits[selected];
       document.getElementById('detail-period').textContent = `${String(selected + 1).padStart(2, '0')} / ${exhibit.category}`;
-      document.getElementById('detail-year').textContent = exhibit.year;
+      document.getElementById('detail-year').textContent = `MARCADOR ${String(markerIndex + 1).padStart(2, '0')} / ${String(activeMarkerCount).padStart(2, '0')}`;
       document.getElementById('detail-title').textContent = exhibit.title;
       document.getElementById('detail-copy').textContent = exhibit.copy;
-      document.querySelectorAll('.scene-index span').forEach((item, i) => item.classList.toggle('active', i === selected));
+      document.querySelectorAll('.scene-index span').forEach((item, i) => item.classList.toggle('active', i === exhibit.group));
       document.querySelectorAll('.artifact').forEach((card, i) => {
-        card.setAttribute('animation__focus', `property: scale; to: ${i === selected ? '1.12 1.12 1.12' : '1 1 1'}; dur: 260; easing: easeOutQuad`);
+        card.setAttribute('animation__focus', `property: scale; to: ${i === exhibit.group ? '1.12 1.12 1.12' : '1 1 1'}; dur: 420; easing: easeOutBack`);
       });
+      setMascotFrame(selected);
+    }
+
+    function setMascotFrame(index) {
+      if (!guideMascot) return;
+      mascotFrame = ((index % 12) + 12) % 12 + 1;
+      guideMascot.classList.add('is-switching');
+      window.setTimeout(() => {
+        guideMascot.src = `./images/img-utiles/${mascotFrame}.png`;
+        guideMascot.classList.remove('is-switching');
+        guideMascot.classList.remove('is-wave');
+        void guideMascot.offsetWidth;
+        guideMascot.classList.add('is-wave');
+      }, 130);
+    }
+
+    function prepareDoorAnchors() {
+      const baseRig = document.getElementById('museumRig');
+      if (!trackingAnchors.length) {
+        trackingAnchors.push(trackingTarget);
+        for (let i = 1; i < activeMarkerCount; i++) {
+          const anchor = document.createElement('a-entity');
+          anchor.classList.add('door-target-anchor');
+          const rigCopy = baseRig.cloneNode(true);
+          [rigCopy, ...rigCopy.querySelectorAll('[id]')].forEach((node) => node.removeAttribute('id'));
+          anchor.appendChild(rigCopy);
+          scene.appendChild(anchor);
+          trackingAnchors.push(anchor);
+        }
+        trackingAnchors.forEach((anchor, index) => {
+          anchor.addEventListener('targetFound', () => onTargetFound(index));
+          anchor.addEventListener('targetLost', () => onTargetLost(index));
+        });
+      }
+      trackingAnchors.forEach((anchor, index) => {
+        anchor.setAttribute('mindar-image-target', `targetIndex: ${index}`);
+      });
+    }
+
+    function clearDoorAnchors() {
+      trackingAnchors.slice(1).forEach((anchor) => anchor.remove());
+      trackingAnchors.length = 0;
+      trackingTarget.removeAttribute('mindar-image-target');
     }
 
     function currentAccessUrl() {
       const url = new URL(location.href);
-      url.searchParams.set('mind', mindSource.value);
-      url.searchParams.set('target', String(Math.max(0, Number.parseInt(targetIndexInput.value || '0', 10))));
+      url.hash = 'recorrido';
       return url.toString();
     }
 
     function refreshQr() {
       qrCode.replaceChildren();
       const isSecure = location.protocol === 'https:';
-      if (customMindUrl) {
-        qrCode.innerHTML = '<span class="qr-placeholder">.mind local</span>';
-        qrHint.textContent = 'El QR solo puede compartir archivos .mind publicados en el sitio.';
-        return;
-      }
       if (!isSecure) {
         qrCode.innerHTML = '<span class="qr-placeholder">HTTPS</span>';
         qrHint.textContent = 'Publicá en HTTPS para generar un QR de acceso que funcione en el teléfono.';
@@ -265,26 +307,25 @@
         return;
       }
       new QRCode(qrCode, { text: currentAccessUrl(), width: 128, height: 128, colorDark: '#06110d', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
-      qrHint.textContent = 'Escaneá para abrir el museo con este .mind y target.';
+      qrHint.textContent = 'Escaneá para abrir el recorrido completo: puerta y mascota.';
     }
 
     async function openAR() {
-      if (arActive) return;
+      if (arActive || arStarting) return;
       if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
         sceneWrap.classList.add('active');
-        arStatus.textContent = 'La cámara necesita HTTPS o localhost. Abrí iniciar-museo.bat.';
+        scannerSection.classList.add('ar-mode');
+        document.body.classList.add('ar-session');
+        arStatus.textContent = 'El navegador bloquea la cámara en este origen. Abrí la página publicada en HTTPS o desde localhost.';
         return;
       }
       if (!scene.hasLoaded) await new Promise((resolve) => scene.addEventListener('loaded', resolve, { once: true }));
-      const targetIndex = Math.max(0, Number.parseInt(targetIndexInput.value || '0', 10));
-      activeTargetIndex = targetIndex;
-      const source = customMindUrl || mindSource.value;
-      if (!source) {
-        arStatus.textContent = 'Elegí un archivo .mind para continuar.';
-        sceneWrap.classList.add('active');
-        return;
-      }
+      const source = mindSource;
       sceneWrap.classList.add('active');
+      scannerSection.classList.add('ar-mode');
+      document.body.classList.add('ar-session');
+      arStarting = true;
+      closeRequested = false;
       camera.setAttribute('position', '0 0 0');
       rig.setAttribute('scale', '.36 .36 .36');
       window.dispatchEvent(new Event('resize'));
@@ -300,13 +341,9 @@
           missTolerance: 10,
           maxTrack: 1
         });
-        trackingTarget.setAttribute('mindar-image-target', `targetIndex: ${targetIndex}`);
-        trackingTarget.removeEventListener('targetFound', onTargetFound);
-        trackingTarget.removeEventListener('targetLost', onTargetLost);
-        trackingTarget.addEventListener('targetFound', onTargetFound);
-        trackingTarget.addEventListener('targetLost', onTargetLost);
+        prepareDoorAnchors();
         scene.addEventListener('arReady', () => {
-          arStatus.textContent = `Cámara lista · apuntá al target ${targetIndex} del .mind`;
+          arStatus.textContent = 'Cámara lista · apuntá a cualquier imagen de la puerta o la mascota';
         }, { once: true });
         scene.addEventListener('arError', (event) => {
           const reason = event.detail?.error?.message || event.detail?.error || '';
@@ -316,76 +353,85 @@
         const arSystem = scene.systems['mindar-image-system'];
         if (!arSystem) throw new Error('No se pudo inicializar MindAR. Revisá la conexión a internet.');
         await arSystem.start();
+        arStarted = true;
         arActive = true;
         document.getElementById('closeAR').focus({ preventScroll: true });
+        arStatus.textContent = `Cámara activa · buscá cualquiera de los ${activeMarkerCount} marcadores de ${activeMarkerName.toLowerCase()}.`;
       } catch (error) {
         console.error('No se pudo iniciar MindAR:', error);
         const message = String(error?.message || error || '');
         if (/permission|denied|notallowed/i.test(message)) {
           arStatus.textContent = 'Permiso de cámara bloqueado. Permitilo en el navegador y volvé a intentar.';
         } else if (/fetch|load|404|network/i.test(message)) {
-          arStatus.textContent = 'No se pudo cargar el .mind. Revisá la conexión y la ruta del archivo.';
+          arStatus.textContent = 'No se pudo cargar el .mind o MindAR. Revisá conexión, ruta y que la página esté en HTTPS o localhost.';
+        } else if (/secure|https|camera/i.test(message)) {
+          arStatus.textContent = 'El navegador no habilitó la cámara. Usá HTTPS o localhost y permití el acceso.';
         } else {
           arStatus.textContent = message || 'No se pudo iniciar MindAR. Revisá los permisos de cámara.';
         }
-        document.getElementById('startAR').disabled = false;
+      } finally {
+        arStarting = false;
+        const userClosedWhileStarting = closeRequested;
+        if (userClosedWhileStarting && arStarted) await closeAR();
+        if (!arActive) {
+          clearDoorAnchors();
+          scene.removeAttribute('mindar-image');
+          document.getElementById('startAR').disabled = false;
+          sceneWrap.classList.toggle('active', !userClosedWhileStarting);
+          camera.setAttribute('position', '0 0 6.6');
+          rig.setAttribute('scale', '1 1 1');
+          window.dispatchEvent(new Event('resize'));
+          closeRequested = false;
+        }
       }
     }
 
-    function onTargetFound() {
-      arStatus.textContent = 'Objeto detectado · espiral anclada';
-      selectExhibit(activeTargetIndex % exhibits.length);
+    function onTargetFound(index) {
+      activeTargetIndex = index;
+      arStatus.textContent = `${activeMarkerName} · marcador ${String(index + 1).padStart(2, '0')} detectado`;
+      selectExhibit(index, index);
     }
 
-    function onTargetLost() {
-      arStatus.textContent = `Buscando la imagen ${activeTargetIndex} del archivo .mind…`;
+    function onTargetLost(index) {
+      if (index === activeTargetIndex) arStatus.textContent = `Buscando el próximo marcador de ${activeMarkerName.toLowerCase()}…`;
     }
 
     async function closeAR() {
+      if (arStarting) {
+        closeRequested = true;
+        arStatus.textContent = 'Cerrando cámara…';
+        return;
+      }
       const arSystem = scene.systems['mindar-image-system'];
-      if (arSystem) {
+      if (arStarted && arSystem) {
         try { await arSystem.stop(); } catch (error) { console.warn('MindAR ya estaba detenido:', error); }
       }
-      trackingTarget.removeAttribute('mindar-image-target');
-      trackingTarget.removeEventListener('targetFound', onTargetFound);
-      trackingTarget.removeEventListener('targetLost', onTargetLost);
+      arStarted = false;
+      arActive = false;
+      clearDoorAnchors();
       scene.removeAttribute('mindar-image');
       sceneWrap.classList.remove('active');
+      scannerSection.classList.remove('ar-mode');
+      document.body.classList.remove('ar-session');
       camera.setAttribute('position', '0 0 6.6');
       rig.setAttribute('scale', '1 1 1');
       window.dispatchEvent(new Event('resize'));
-      arActive = false;
+      closeRequested = false;
       document.getElementById('startAR').disabled = false;
       arStatus.textContent = 'Preparando cámara…';
     }
 
-    mindSource.addEventListener('change', () => {
-      if (customMindUrl) URL.revokeObjectURL(customMindUrl);
-      customMindUrl = '';
-      mindUpload.value = '';
-      refreshQr();
-    });
-    targetIndexInput.addEventListener('input', refreshQr);
-    mindUpload.addEventListener('change', () => {
-      const file = mindUpload.files?.[0];
-      if (!file) return;
-      if (!file.name.toLowerCase().endsWith('.mind')) {
-        document.getElementById('entryNote').textContent = 'Seleccioná un archivo con extensión .mind.';
-        mindUpload.value = '';
-        return;
-      }
-      if (customMindUrl) URL.revokeObjectURL(customMindUrl);
-      customMindUrl = URL.createObjectURL(file);
-      document.getElementById('entryNote').textContent = `${file.name} listo. Elegí el índice del objeto que vas a escanear y abrí la cámara.`;
-      refreshQr();
-    });
+    document.querySelectorAll('.welcome-cta').forEach((link) => link.addEventListener('click', () => {
+      window.setTimeout(() => document.getElementById('startAR').focus({ preventScroll: true }), 350);
+    }));
     document.getElementById('startAR').addEventListener('click', openAR);
     document.getElementById('closeAR').addEventListener('click', closeAR);
+    mascotTimer = window.setInterval(() => setMascotFrame(mascotFrame), 5200);
     refreshQr();
 
     function attachPreviewControls() {
       document.querySelectorAll('.artifact').forEach((card, index) => {
-        card.addEventListener('click', () => selectExhibit(index));
+        card.addEventListener('click', () => selectExhibit(exhibits.findIndex((item) => item.group === index)));
         card.querySelectorAll('a-plane').forEach((plane) => plane.classList.add('clickable'));
       });
       const canvas = scene.canvas;
@@ -410,7 +456,10 @@
       }, { passive: false });
       document.querySelector('.scene-index').addEventListener('click', (event) => {
         const dot = event.target.closest('[data-index]');
-        if (dot) selectExhibit(Number(dot.dataset.index) - 1);
+        if (dot) {
+          const group = Number(dot.dataset.index) - 1;
+          selectExhibit(exhibits.findIndex((item) => item.group === group));
+        }
       });
     }
     if (scene.hasLoaded) attachPreviewControls();
