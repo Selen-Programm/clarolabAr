@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050706">
+  <title>Archivo Vivo — Museo Clarolab</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <link rel="stylesheet" href="./museo.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Clarolab, Archivo Vivo">
+      <span class="brand-mark">C/</span><span>CLAROLAB</span>
+    </a>
+    <div class="header-note">Archivo vivo · Tecnología con historia</div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="intro">
+        <div class="eyebrow">Museo de computación · Vol. 01</div>
+        <h1 id="hero-title">El futuro también <span>tiene memoria.</span></h1>
+        <p>Un recorrido por las máquinas que acercaron la tecnología a nuestras casas. Cada vuelta de la espiral revela
+          una nueva historia.</p>
+      </div>
+
+      <div class="scene-wrap" aria-label="Recorrido 3D por la colección de computadoras clásicas">
+        <a-scene embedded background="color: #050706" renderer="colorManagement: true; antialias: true; alpha: true"
+          vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+          <a-assets>
+            <img id="apple2e" src="./images/prueba/apl2.jpg" crossorigin="anonymous">
+            <img id="commodore64" src="./images/prueba/commodorec2.jpg" crossorigin="anonymous">
+            <img id="dpc200" src="./images/prueba/dpc200.jpg" crossorigin="anonymous">
+            <img id="powerbook170" src="./images/prueba/mac.jpg" crossorigin="anonymous">
+            <img id="asteroids" src="./images/atari.png" crossorigin="anonymous">
+          </a-assets>
+          <a-entity id="museumRig" position="0 0 0">
+            <a-entity helix-spine></a-entity>
+            <a-torus position="0 0 0" radius="0.22" radius-tubular="0.007" rotation="90 0 0"
+              material="color: #00e6a0; shader: flat; opacity: .8; transparent: true"></a-torus>
+            <a-sphere position="0 0 0" radius="0.09"
+              material="color: #00e6a0; emissive: #00e6a0; emissiveIntensity: .45; shader: standard"></a-sphere>
+            <a-entity class="artifact clickable" data-key="apple" data-index="01">
+              <a-plane width="0.83" height="0.56" position="0 0 0"
+                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+              <a-plane src="#apple2e" width="0.78" height="0.43" position="0 0.025 0.012"
+                material="shader: flat; side: double"></a-plane>
+              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                material="color: #00e6a0; shader: flat; side: double"></a-plane>
+            </a-entity>
+            <a-entity class="artifact clickable" data-key="commodore" data-index="02">
+              <a-plane width="0.83" height="0.56" position="0 0 0"
+                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+              <a-plane src="#commodore64" width="0.78" height="0.43" position="0 0.025 0.012"
+                material="shader: flat; side: double"></a-plane>
+              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                material="color: #00e6a0; shader: flat; side: double"></a-plane>
+            </a-entity>
+            <a-entity class="artifact clickable" data-key="dpc" data-index="03">
+              <a-plane width="0.83" height="0.56" position="0 0 0"
+                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+              <a-plane src="#dpc200" width="0.78" height="0.43" position="0 0.025 0.012"
+                material="shader: flat; side: double"></a-plane>
+              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                material="color: #00e6a0; shader: flat; side: double"></a-plane>
+            </a-entity>
+            <a-entity class="artifact clickable" data-key="powerbook" data-index="04">
+              <a-plane width="0.83" height="0.56" position="0 0 0"
+                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+              <a-plane src="#powerbook170" width="0.78" height="0.43" position="0 0.025 0.012"
+                material="shader: flat; side: double"></a-plane>
+              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                material="color: #00e6a0; shader: flat; side: double"></a-plane>
+            </a-entity>
+            <a-entity class="artifact clickable" data-key="asteroids" data-index="05">
+              <a-plane width="0.83" height="0.56" position="0 0 0"
+                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+              <a-plane src="#asteroids" width="0.78" height="0.43" position="0 0.025 0.012"
+                material="shader: flat; side: double"></a-plane>
+              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                material="color: #00e6a0; shader: flat; side: double"></a-plane>
+            </a-entity>
+          </a-entity>
+          <a-camera id="museumCamera" position="0 0 6.6" look-controls="enabled: false" wasd-controls="enabled: false"
+            cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .clickable; far: 20"></a-camera>
+        </a-scene>
+      </div>
+
+      <aside class="detail-card" aria-live="polite">
+        <div class="detail-meta"><span id="detail-period">01 / COLECCIÓN</span><span id="detail-year">1983</span></div>
+        <h2 id="detail-title">Apple IIe</h2>
+        <p id="detail-copy">Una de las computadoras que ayudó a llevar la informática desde los laboratorios hasta las
+          aulas y los hogares.</p>
+      </aside>
+
+      <nav class="scene-index" aria-label="Piezas de la colección">
+        <span data-index="01" class="active">01</span><span data-index="02">02</span><span
+          data-index="03">03</span><span data-index="04">04</span><span data-index="05">05</span>
+      </nav>
+      <div class="interaction-hint"><span class="drag-icon">↔</span><span>Arrastrá para girar · Seleccioná una
+          pieza</span></div>
+      <div class="bottom-bar"><span><b>CLAROLAB</b> · ARCHIVO VIVO</span><a class="explore" href="#coleccion">Explorar
+          la colección ↓</a></div>
+    </section>
+
+    <section class="collection" id="coleccion">
+      <div class="collection-head">
+        <div>
+          <div class="eyebrow">Una historia en movimiento</div>
+          <h2>De la primera tecla a un mundo conectado.</h2>
+        </div>
+        <p>Las computadoras no cambiaron solo de tamaño. Cambiaron quién podía crear, jugar, aprender y conectarse. Este
+          archivo celebra esos primeros pasos.</p>
+      </div>
+      <div class="collection-grid">
+        <article class="collection-item"><small>01 — COMPUTACIÓN PERSONAL</small>
+          <h3>Una máquina para aprender</h3>
+          <p>Apple IIe · 1983. Tecnología abierta a aulas, familias y una nueva generación de curiosos.</p>
+        </article>
+        <article class="collection-item"><small>02 — LA CASA COMO LABORATORIO</small>
+          <h3>Crear, jugar, programar</h3>
+          <p>Commodore 64 · 1982. Una computadora doméstica que hizo del teclado una puerta de entrada.</p>
+        </article>
+        <article class="collection-item"><small>03 — INGENIO LOCAL</small>
+          <h3>El MSX también tuvo acento argentino</h3>
+          <p>Talent DPC-200 · Una pieza de la historia regional de la computación y el juego.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer><span>CLAROLAB · DESDE JUNÍN, BUENOS AIRES</span><span>TECNOLOGÍA CON HISTORIA</span></footer>
+
+  <script>
+    const exhibits = [
+      { key: 'apple', title: 'Apple IIe', year: '1983', category: 'COMPUTACIÓN PERSONAL', copy: 'Una de las computadoras que ayudó a llevar la informática desde los laboratorios hasta las aulas y los hogares.' },
+      { key: 'commodore', title: 'Commodore 64', year: '1982', category: 'LA COMPUTADORA EN CASA', copy: 'Una máquina doméstica que convirtió el teclado en una puerta para programar, aprender y jugar.' },
+      { key: 'dpc', title: 'Talent DPC-200', year: 'MSX · ARGENTINA', category: 'INGENIO LOCAL', copy: 'Una computadora compatible con MSX, parte de una generación que acercó software y videojuegos a nuevos públicos.' },
+      { key: 'powerbook', title: 'Macintosh PowerBook 170', year: '1991', category: 'TECNOLOGÍA PORTÁTIL', copy: 'Una computadora pensada para salir del escritorio: pantalla activa, teclado integrado y una nueva idea de movilidad.' },
+      { key: 'asteroids', title: 'Asteroids', year: 'ATARI · 1981', category: 'JUEGO Y CULTURA', copy: 'Un clásico de arcade convertido en cartucho: el software también forma parte de la memoria material de la computación.' }
+    ];
+
+    AFRAME.registerComponent('helix-spine', {
+      init() {
+        const points = [];
+        const steps = 240;
+        const turns = 2.7;
+        const radius = 1.42;
+        const height = 5.4;
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          const angle = t * turns * Math.PI * 2;
+          points.push(new THREE.Vector3(Math.cos(angle) * radius, (t - .5) * height, Math.sin(angle) * radius));
+        }
+        const path = new THREE.CatmullRomCurve3(points);
+        const geometry = new THREE.TubeGeometry(path, 360, .012, 7, false);
+        const material = new THREE.MeshBasicMaterial({ color: '#00e6a0', transparent: true, opacity: .74 });
+        this.el.setObject3D('helix', new THREE.Mesh(geometry, material));
+        const data = [...document.querySelectorAll('.artifact')];
+        data.forEach((card, i) => {
+          const t = i / (data.length - 1);
+          const angle = t * turns * Math.PI * 2 + .5;
+          const x = Math.cos(angle) * (radius + .12);
+          const y = (t - .5) * height;
+          const z = Math.sin(angle) * (radius + .12);
+          const faceCenterY = (-angle - Math.PI / 2) * 180 / Math.PI;
+          card.setAttribute('position', `${x} ${y} ${z}`);
+          card.setAttribute('rotation', `0 ${faceCenterY} 0`);
+          card.setAttribute('scale', '.001 .001 .001');
+          card.setAttribute('animation__arrive', `property: scale; from: .001 .001 .001; to: 1 1 1; dur: 650; delay: ${180 + i * 130}; easing: easeOutBack`);
+        });
+      }
+    });
+
+    const scene = document.querySelector('a-scene');
+    const rig = document.getElementById('museumRig');
+    const camera = document.getElementById('museumCamera');
+    let selected = 0;
+    let dragStart = null;
+    let baseRotation = 0;
+
+    function selectExhibit(index) {
+      selected = (index + exhibits.length) % exhibits.length;
+      const exhibit = exhibits[selected];
+      document.getElementById('detail-period').textContent = `${String(selected + 1).padStart(2, '0')} / ${exhibit.category}`;
+      document.getElementById('detail-year').textContent = exhibit.year;
+      document.getElementById('detail-title').textContent = exhibit.title;
+      document.getElementById('detail-copy').textContent = exhibit.copy;
+      document.querySelectorAll('.scene-index span').forEach((item, i) => item.classList.toggle('active', i === selected));
+      document.querySelectorAll('.artifact').forEach((card, i) => {
+        card.setAttribute('animation__focus', `property: scale; to: ${i === selected ? '1.12 1.12 1.12' : '1 1 1'}; dur: 260; easing: easeOutQuad`);
+      });
+    }
+
+    scene.addEventListener('loaded', () => {
+      document.querySelectorAll('.artifact').forEach((card, index) => {
+        card.addEventListener('click', () => selectExhibit(index));
+      });
+      const canvas = scene.canvas;
+      canvas.addEventListener('pointerdown', (event) => {
+        dragStart = { x: event.clientX, y: event.clientY, rotation: baseRotation };
+        canvas.setPointerCapture?.(event.pointerId);
+      });
+      canvas.addEventListener('pointermove', (event) => {
+        if (!dragStart) return;
+        const delta = event.clientX - dragStart.x;
+        baseRotation = dragStart.rotation + delta * .35;
+        rig.setAttribute('rotation', `0 ${baseRotation} 0`);
+      });
+      const release = () => { dragStart = null; };
+      canvas.addEventListener('pointerup', release);
+      canvas.addEventListener('pointercancel', release);
+      canvas.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        const direction = Math.sign(event.deltaY);
+        camera.object3D.position.z = Math.min(8, Math.max(4.8, camera.object3D.position.z + direction * .22));
+      }, { passive: false });
+      document.querySelector('.scene-index').addEventListener('click', (event) => {
+        const dot = event.target.closest('[data-index]');
+        if (dot) selectExhibit(Number(dot.dataset.index) - 1);
+      });
+    });
+  </script>
+</body>
+
+</html>
