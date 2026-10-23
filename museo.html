@@ -19,18 +19,22 @@
     </a>
     <div class="header-note">Archivo vivo · Tecnología con historia</div>
   </header>
-
+  <!-- index de la web inicial, html + css -->
   <main>
     <section class="welcome" id="inicio" aria-labelledby="welcome-title">
       <div class="welcome-copy">
         <div class="eyebrow">CLAROLAB · JUNÍN, ARGENTINA</div>
         <h1 id="welcome-title">Una puerta. <span>Muchas formas de crear.</span></h1>
-        <p>Este recorrido transforma la puerta de Clarolab y las ilustraciones de su mascota en un mapa interactivo. Escaneá sus marcadores y descubrí cómo el equipo desarrolla software, lo pone a prueba, lo protege y explora nuevas ideas.</p>
-        <a class="primary-button welcome-cta" href="#recorrido">Conocer el recorrido <span aria-hidden="true">↓</span></a>
+        <p>Este recorrido transforma la puerta de Clarolab y las ilustraciones de su mascota en un mapa interactivo.
+          Escaneá sus marcadores y descubrí cómo el equipo desarrolla software, lo pone a prueba, lo protege y explora
+          nuevas ideas.</p>
+        <a class="primary-button welcome-cta" href="#recorrido">Conocer el recorrido <span
+            aria-hidden="true">↓</span></a>
         <div class="welcome-caption"><span class="pulse-dot"></span> Puerta + mascota: 23 señales · 5 capítulos</div>
       </div>
       <div class="welcome-figure" aria-label="La mascota de Clarolab te acompaña durante el recorrido">
-        <div class="figure-orbit orbit-one"></div><div class="figure-orbit orbit-two"></div>
+        <div class="figure-orbit orbit-one"></div>
+        <div class="figure-orbit orbit-two"></div>
         <img id="guideMascot" src="./images/img-utiles/6.png" alt="Mascota ilustrada de Clarolab">
         <div class="mascot-note"><span>HOLA, SOY TU GUÍA</span><b>Seguime. Hay mucho por descubrir.</b></div>
       </div>
@@ -41,88 +45,106 @@
       <div class="intro">
         <div class="eyebrow">RECORRIDO INTERACTIVO · CLAROLAB</div>
         <h1 id="hero-title">La puerta se abre. <span>Empieza el recorrido.</span></h1>
-        <p>Apuntá la cámara a cualquiera de las imágenes de la puerta o la mascota. Cada marcador revela una parte del trabajo de Clarolab.</p>
+        <p id="scannerDescription">Apuntá la cámara a cualquiera de las imágenes de la puerta o la mascota. Cada marcador revela una parte del
+          trabajo de Clarolab.</p>
       </div>
 
       <div class="entry-controls" aria-label="Iniciar el recorrido del museo">
-        <span class="target-summary"><b>PUERTA + MASCOTA</b><span>23 marcadores en un solo escaneo</span></span>
-        <button id="startAR" class="primary-button" type="button">Iniciar el recorrido <span aria-hidden="true">↗</span></button>
-        <p class="entry-note" id="entryNote">Al iniciar, permití el uso de la cámara. MindAR buscará todos los marcadores de la puerta y la mascota en un único recorrido. Necesitás HTTPS o localhost.</p>
+        <span class="target-summary"><b id="trackerName">PUERTA + MASCOTA</b><span id="trackerCount">23 marcadores en un solo escaneo</span></span>
+        <div class="tracker-choice" role="group" aria-label="Elegí qué imágenes escanear">
+          <button type="button" class="tracker-option active" data-tracker="door" aria-pressed="true">Puerta y mascota</button>
+          <button type="button" class="tracker-option" data-tracker="walk" aria-pressed="false">Paisajes y puerta</button>
+        </div>
+        <button id="startAR" class="primary-button" type="button">Iniciar el recorrido <span
+            aria-hidden="true">↗</span></button>
+        <p class="entry-note" id="entryNote">Al iniciar, permití el uso de la cámara. MindAR buscará todos los
+          marcadores de la puerta y la mascota en un único recorrido. Necesitás HTTPS o localhost.</p>
       </div>
-
       <aside class="qr-card" aria-label="QR de acceso al museo">
         <strong>QR DE ACCESO</strong>
         <div id="qrCode"><span class="qr-placeholder">URL HTTPS</span></div>
         <small id="qrHint">Publicá el museo para generar un QR que se abra desde el teléfono.</small>
       </aside>
-
       <div class="scene-wrap" id="sceneWrap" aria-label="Realidad aumentada del museo">
-        <a-scene embedded renderer="colorManagement: true; antialias: true; alpha: true"
-          vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+        <a-scene embedded renderer="colorManagement: true; antialias: true; alpha: true" vr-mode-ui="enabled: false"
+          device-orientation-permission-ui="enabled: false">
           <a-entity id="trackingTarget">
-          <a-entity id="museumRig" position="0 0 0">
-            <a-entity helix-spine></a-entity>
-            <a-torus position="0 0 0" radius="0.22" radius-tubular="0.007" rotation="90 0 0"
-              material="color: #00e6a0; shader: flat; opacity: .8; transparent: true"></a-torus>
-            <a-sphere position="0 0 0" radius="0.09"
-              material="color: #00e6a0; emissive: #00e6a0; emissiveIntensity: .45; shader: standard"></a-sphere>
-            <a-entity class="artifact clickable" data-key="development" data-index="01">
-              <a-plane width="0.83" height="0.56" position="0 0 0"
-                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-text value="DESARROLLO" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
-              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
-                material="color: #00e6a0; shader: flat; side: double"></a-plane>
+            <a-entity id="museumRig" position="0 0 0">
+              <a-entity helix-spine></a-entity>
+              <a-torus position="0 0 0" radius="0.22" radius-tubular="0.007" rotation="90 0 0"
+                material="color: #00e6a0; shader: flat; opacity: .8; transparent: true"></a-torus>
+              <a-sphere position="0 0 0" radius="0.09"
+                material="color: #00e6a0; emissive: #00e6a0; emissiveIntensity: .45; shader: standard"></a-sphere>
+              <a-entity class="artifact clickable" data-key="development" data-index="01">
+                <a-plane width="0.83" height="0.56" position="0 0 0"
+                  material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+                <a-text value="DESARROLLO" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
+                <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                  material="color: #00e6a0; shader: flat; side: double"></a-plane>
+              </a-entity>
+              <a-entity class="artifact clickable" data-key="testing" data-index="02">
+                <a-plane width="0.83" height="0.56" position="0 0 0"
+                  material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+                <a-text value="TESTING" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
+                <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                  material="color: #00e6a0; shader: flat; side: double"></a-plane>
+              </a-entity>
+              <a-entity class="artifact clickable" data-key="security" data-index="03">
+                <a-plane width="0.83" height="0.56" position="0 0 0"
+                  material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+                <a-text value="SEGURIDAD" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
+                <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                  material="color: #00e6a0; shader: flat; side: double"></a-plane>
+              </a-entity>
+              <a-entity class="artifact clickable" data-key="lab" data-index="04">
+                <a-plane width="0.83" height="0.56" position="0 0 0"
+                  material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+                <a-text value="LAB CREATION" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
+                <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                  material="color: #00e6a0; shader: flat; side: double"></a-plane>
+              </a-entity>
+              <a-entity class="artifact clickable" data-key="allies" data-index="05">
+                <a-plane width="0.83" height="0.56" position="0 0 0"
+                  material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
+                <a-text value="EQUIPO" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
+                <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
+                  material="color: #00e6a0; shader: flat; side: double"></a-plane>
+              </a-entity>
             </a-entity>
-            <a-entity class="artifact clickable" data-key="testing" data-index="02">
-              <a-plane width="0.83" height="0.56" position="0 0 0"
-                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-text value="TESTING" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
-              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
-                material="color: #00e6a0; shader: flat; side: double"></a-plane>
-            </a-entity>
-            <a-entity class="artifact clickable" data-key="security" data-index="03">
-              <a-plane width="0.83" height="0.56" position="0 0 0"
-                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-text value="SEGURIDAD" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
-              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
-                material="color: #00e6a0; shader: flat; side: double"></a-plane>
-            </a-entity>
-            <a-entity class="artifact clickable" data-key="lab" data-index="04">
-              <a-plane width="0.83" height="0.56" position="0 0 0"
-                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-text value="LAB CREATION" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
-              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
-                material="color: #00e6a0; shader: flat; side: double"></a-plane>
-            </a-entity>
-            <a-entity class="artifact clickable" data-key="allies" data-index="05">
-              <a-plane width="0.83" height="0.56" position="0 0 0"
-                material="color: #0c1512; shader: flat; side: double; opacity: .98"></a-plane>
-              <a-text value="EQUIPO" align="center" width="1.8" color="#00e6a0" position="0 0.03 0.04"></a-text>
-              <a-plane width="0.83" height="0.035" position="0 -0.265 0.02"
-                material="color: #00e6a0; shader: flat; side: double"></a-plane>
-            </a-entity>
-          </a-entity>
           </a-entity>
           <a-camera id="museumCamera" position="0 0 6.6" look-controls="enabled: false" wasd-controls="enabled: false"
             cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .clickable; far: 20"></a-camera>
         </a-scene>
         <div class="ar-hud">
-          <div class="ar-topline"><div class="ar-status" id="arStatus" role="status">Preparando cámara…</div><button id="closeAR" class="ar-close" type="button">Cerrar AR</button></div>
+          <div class="ar-topline">
+            <div class="ar-status" id="arStatus" role="status">Preparando cámara…</div><button id="closeAR"
+              class="ar-close" type="button">Cerrar AR</button>
+          </div>
+          <div class="ar-navigation" aria-label="Navegar los capítulos">
+            <button id="previousExhibit" type="button" aria-label="Capítulo anterior">←</button>
+            <span id="arChapter">01 / 05</span>
+            <button id="nextExhibit" type="button" aria-label="Capítulo siguiente">→</button>
+          </div>
+          <div class="ar-drag-hint">Arrastrá para girar y encuadrar</div>
         </div>
       </div>
 
       <aside class="detail-card" aria-live="polite">
-        <div class="detail-meta"><span id="detail-period">01 / DESARROLLO</span><span id="detail-year">CAPÍTULO</span></div>
+        <div class="detail-meta"><span id="detail-period">01 / DESARROLLO</span><span id="detail-year">CAPÍTULO</span>
+        </div>
         <h2 id="detail-title">Software con propósito</h2>
-        <p id="detail-copy">Clarolab desarrolla productos de software junto a sus aliados: equipos integrados, soluciones a medida y foco en calidad.</p>
+        <p id="detail-copy">Clarolab desarrolla productos de software junto a sus aliados: equipos integrados,
+          soluciones a medida y foco en calidad.</p>
       </aside>
 
       <nav class="scene-index" aria-label="Capítulos del recorrido">
         <span data-index="01" class="active">01</span><span data-index="02">02</span><span
           data-index="03">03</span><span data-index="04">04</span><span data-index="05">05</span>
       </nav>
-      <div class="interaction-hint"><span class="drag-icon">◎</span><span>Mové la cámara entre todos los marcadores</span></div>
-      <div class="bottom-bar"><span><b>CLAROLAB</b> · PUERTAS ABIERTAS</span><a class="explore" href="#coleccion">Ver los capítulos ↓</a></div>
+      <div class="interaction-hint"><span class="drag-icon">◎</span><span>Mové la cámara entre todos los
+          marcadores</span></div>
+      <div class="bottom-bar"><span><b>CLAROLAB</b> · PUERTAS ABIERTAS</span><a class="explore" href="#coleccion">Ver
+          los capítulos ↓</a></div>
     </section>
 
     <section class="collection" id="coleccion">
@@ -131,12 +153,14 @@
           <div class="eyebrow">LO QUE VAS A DESCUBRIR</div>
           <h2>Ideas que se convierten en software mejor.</h2>
         </div>
-        <p>Clarolab acompaña a sus aliados a desarrollar y probar productos de software. Cada marcador de la puerta abre una parte de ese trabajo: aprender el producto, crear soluciones y mejorar continuamente.</p>
+        <p>Clarolab acompaña a sus aliados a desarrollar y probar productos de software. Cada marcador de la puerta abre
+          una parte de ese trabajo: aprender el producto, crear soluciones y mejorar continuamente.</p>
       </div>
       <div class="collection-grid">
         <article class="collection-item"><small>01 — DESARROLLO</small>
           <h3>Construir con intención</h3>
-          <p>Desarrollo de productos con React, Spring Boot, microservicios y Python; soluciones de IA y foco en rendimiento y escala.</p>
+          <p>Desarrollo de productos con React, Spring Boot, microservicios y Python; soluciones de IA y foco en
+            rendimiento y escala.</p>
         </article>
         <article class="collection-item"><small>02 — TESTING</small>
           <h3>Calidad desde el principio</h3>
@@ -156,7 +180,8 @@
         </article>
         <article class="collection-item mascot-item"><small>+ UNA GUÍA PARA EL CAMINO</small>
           <h3>La curiosidad también se comparte</h3>
-          <p>La mascota cambia de look a medida que avanzás. En cada marcador, aparece para señalar que hay un nuevo capítulo.</p>
+          <p>La mascota cambia de look a medida que avanzás. En cada marcador, aparece para señalar que hay un nuevo
+            capítulo.</p>
           <img src="./images/img-utiles/tetris.gif" alt="Animación de Tetris de Clarolab" loading="lazy">
         </article>
       </div>
@@ -173,8 +198,13 @@
       { group: 4, category: 'CUSTOMER JOURNEY', title: 'Crecer codo a codo', copy: 'Clarolab aprende cada producto y acompaña a sus aliados con equipos estables, crecimiento compartido y una cultura que busca generar un impacto positivo.' }
     ];
 
-    let activeMarkerCount = 23;
-    let activeMarkerName = 'puerta y mascota';
+    const trackers = {
+      door: { src: './images/clarolab-all.mind', count: 23, name: 'puerta y mascota' },
+      walk: { src: './images/targets-caminata.mind', count: 5, name: 'paisajes y puerta' }
+    };
+    let activeTracker = 'door';
+    let activeMarkerCount = trackers.door.count;
+    let activeMarkerName = trackers.door.name;
 
     AFRAME.registerComponent('helix-spine', {
       init() {
@@ -214,7 +244,6 @@
     const trackingTarget = document.getElementById('trackingTarget');
     const sceneWrap = document.getElementById('sceneWrap');
     const scannerSection = document.getElementById('recorrido');
-    const mindSource = './images/clarolab-all.mind';
     const qrCode = document.getElementById('qrCode');
     const qrHint = document.getElementById('qrHint');
     const arStatus = document.getElementById('arStatus');
@@ -238,10 +267,15 @@
       document.getElementById('detail-year').textContent = `MARCADOR ${String(markerIndex + 1).padStart(2, '0')} / ${String(activeMarkerCount).padStart(2, '0')}`;
       document.getElementById('detail-title').textContent = exhibit.title;
       document.getElementById('detail-copy').textContent = exhibit.copy;
+      document.getElementById('arChapter').textContent = `${String(selected + 1).padStart(2, '0')} / ${String(exhibits.length).padStart(2, '0')}`;
       document.querySelectorAll('.scene-index span').forEach((item, i) => item.classList.toggle('active', i === exhibit.group));
       document.querySelectorAll('.artifact').forEach((card, i) => {
         card.setAttribute('animation__focus', `property: scale; to: ${i === exhibit.group ? '1.12 1.12 1.12' : '1 1 1'}; dur: 420; easing: easeOutBack`);
       });
+      // Girar el espiral coloca el capítulo elegido de frente y evita que quede fuera del encuadre.
+      const angle = (selected / (document.querySelectorAll('.artifact').length - 1)) * 2.7 * 360 - 90;
+      baseRotation = -angle;
+      rig.setAttribute('rotation', `0 ${baseRotation} 0`);
       setMascotFrame(selected);
     }
 
@@ -320,7 +354,10 @@
         return;
       }
       if (!scene.hasLoaded) await new Promise((resolve) => scene.addEventListener('loaded', resolve, { once: true }));
-      const source = mindSource;
+      const tracker = trackers[activeTracker];
+      activeMarkerCount = tracker.count;
+      activeMarkerName = tracker.name;
+      const source = tracker.src;
       sceneWrap.classList.add('active');
       scannerSection.classList.add('ar-mode');
       document.body.classList.add('ar-session');
@@ -389,7 +426,7 @@
     function onTargetFound(index) {
       activeTargetIndex = index;
       arStatus.textContent = `${activeMarkerName} · marcador ${String(index + 1).padStart(2, '0')} detectado`;
-      selectExhibit(index, index);
+      selectExhibit(index % exhibits.length, index);
     }
 
     function onTargetLost(index) {
@@ -426,6 +463,26 @@
     }));
     document.getElementById('startAR').addEventListener('click', openAR);
     document.getElementById('closeAR').addEventListener('click', closeAR);
+    document.querySelectorAll('.tracker-option').forEach((button) => button.addEventListener('click', () => {
+      if (arActive || arStarting) return;
+      activeTracker = button.dataset.tracker;
+      const tracker = trackers[activeTracker];
+      activeMarkerCount = tracker.count;
+      activeMarkerName = tracker.name;
+      document.querySelectorAll('.tracker-option').forEach((option) => {
+        const active = option === button;
+        option.classList.toggle('active', active);
+        option.setAttribute('aria-pressed', String(active));
+      });
+      document.getElementById('trackerName').textContent = activeTracker === 'door' ? 'PUERTA + MASCOTA' : 'PAISAJES + PUERTA';
+      document.getElementById('trackerCount').textContent = `${tracker.count} marcadores en un solo escaneo`;
+      document.getElementById('entryNote').textContent = `Al iniciar, permití el uso de la cámara. MindAR buscará las imágenes de ${tracker.name} en un único recorrido. Necesitás HTTPS o localhost.`;
+      document.getElementById('scannerDescription').textContent = activeTracker === 'door'
+        ? 'Apuntá la cámara a cualquiera de las imágenes de la puerta o la mascota. Cada marcador revela una parte del trabajo de Clarolab.'
+        : 'Apuntá la cámara a los paisajes o a la puerta. Cada imagen abre una parte del recorrido de Clarolab.';
+    }));
+    document.getElementById('previousExhibit').addEventListener('click', () => selectExhibit(selected - 1));
+    document.getElementById('nextExhibit').addEventListener('click', () => selectExhibit(selected + 1));
     mascotTimer = window.setInterval(() => setMascotFrame(mascotFrame), 5200);
     refreshQr();
 
