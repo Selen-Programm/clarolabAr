@@ -800,6 +800,71 @@ footer {
   }
 }
 
+.scene-wrap.active~.detail-card {
+  left: 50%;
+  bottom: max(5.5rem, 11vh);
+  width: min(24rem, calc(100% - 2rem));
+  padding: 1.35rem 1.5rem 1.5rem;
+  border: 0;
+  border-left: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  text-align: center;
+  transform: translateX(-50%);
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+}
+
+.scene-wrap.active~.detail-card::before,
+.scene-wrap.active~.detail-card::after {
+  position: absolute;
+  z-index: 0;
+  content: "";
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+}
+
+.scene-wrap.active~.detail-card::before {
+  inset: 0;
+  background: var(--green);
+}
+
+.scene-wrap.active~.detail-card::after {
+  inset: 1px;
+  background: rgba(5, 7, 6, .94);
+}
+
+.scene-wrap.active~.detail-card>* {
+  position: relative;
+  z-index: 1;
+}
+
+.scene-wrap.active~.detail-card .detail-meta {
+  justify-content: center;
+  color: var(--green);
+}
+
+.scene-wrap.active~.detail-card h2 {
+  margin: .55rem 0 .4rem;
+  font-size: clamp(1.15rem, 2.3vw, 1.5rem);
+}
+
+.scene-wrap.active~.detail-card p {
+  max-width: 21rem;
+  margin: 0 auto;
+  color: #a7b2ad;
+  font-size: .78rem;
+  line-height: 1.55;
+}
+
+.scene-wrap.active~.detail-card.is-changing {
+  animation: exhibit-arrive .35s ease-out both;
+}
+
+@keyframes exhibit-arrive {
+  from { opacity: .35; transform: translate(-50%, 12px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
 /* Guided opening and the Clarolab story arc */
 .welcome {
   position: relative;
