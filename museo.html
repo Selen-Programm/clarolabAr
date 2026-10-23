@@ -45,19 +45,15 @@
       <div class="intro">
         <div class="eyebrow">RECORRIDO INTERACTIVO · CLAROLAB</div>
         <h1 id="hero-title">La puerta se abre. <span>Empieza el recorrido.</span></h1>
-        <p id="scannerDescription">Apuntá la cámara a cualquiera de las imágenes de la puerta o la mascota. Cada
-          marcador revela una parte del
+        <p id="scannerDescription">Apuntá la cámara a cualquiera de las imágenes de la puerta o la mascota. Cada marcador revela una parte del
           trabajo de Clarolab.</p>
       </div>
 
       <div class="entry-controls" aria-label="Iniciar el recorrido del museo">
-        <span class="target-summary"><b id="trackerName">PUERTA + MASCOTA</b><span id="trackerCount">23 marcadores en un
-            solo escaneo</span></span>
+        <span class="target-summary"><b id="trackerName">PUERTA + MASCOTA</b><span id="trackerCount">23 marcadores en un solo escaneo</span></span>
         <div class="tracker-choice" role="group" aria-label="Elegí qué imágenes escanear">
-          <button type="button" class="tracker-option active" data-tracker="door" aria-pressed="true">Puerta y
-            mascota</button>
-          <button type="button" class="tracker-option" data-tracker="walk" aria-pressed="false">Paisajes y
-            puerta</button>
+          <button type="button" class="tracker-option active" data-tracker="door" aria-pressed="true">Puerta y mascota</button>
+          <button type="button" class="tracker-option" data-tracker="walk" aria-pressed="false">Paisajes y puerta</button>
         </div>
         <button id="startAR" class="primary-button" type="button">Iniciar el recorrido <span
             aria-hidden="true">↗</span></button>
@@ -278,8 +274,7 @@
       });
       // Girar el espiral coloca el capítulo elegido de frente y evita que quede fuera del encuadre.
       const angle = (selected / (document.querySelectorAll('.artifact').length - 1)) * 2.7 * 360 - 90;
-      baseRotation = -angle;
-      rig.setAttribute('rotation', `0 ${baseRotation} 0`);
+      rig.setAttribute('rotation', `0 ${-angle} 0`);
       setMascotFrame(selected);
     }
 
