@@ -490,13 +490,6 @@ body.ar-session footer {
   cursor: pointer;
 }
 
-.tracker-choice {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .45rem;
-}
-
-.tracker-option,
 .ar-navigation button {
   min-height: 40px;
   padding: .55rem .8rem;
@@ -506,7 +499,6 @@ body.ar-session footer {
   cursor: pointer;
 }
 
-.tracker-option.active,
 .ar-navigation button:hover {
   color: var(--green);
   border-color: var(--green);

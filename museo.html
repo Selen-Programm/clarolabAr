@@ -25,12 +25,10 @@
       <div class="welcome-copy">
         <div class="eyebrow">CLAROLAB · JUNÍN, ARGENTINA</div>
         <h1 id="welcome-title">Una puerta. <span>Muchas formas de crear.</span></h1>
-        <p>Este recorrido transforma la puerta de Clarolab y las ilustraciones de su mascota en un mapa interactivo.
-          Escaneá sus marcadores y descubrí cómo el equipo desarrolla software, lo pone a prueba, lo protege y explora
-          nuevas ideas.</p>
+        <p>Un recorrido interactivo por Clarolab. Acercate a la puerta, a los paisajes o a la mascota y descubrí cómo el equipo crea, prueba y protege software.</p>
         <a class="primary-button welcome-cta" href="#recorrido">Conocer el recorrido <span
             aria-hidden="true">↓</span></a>
-        <div class="welcome-caption"><span class="pulse-dot"></span> Puerta + mascota: 23 señales · 5 capítulos</div>
+        <div class="welcome-caption"><span class="pulse-dot"></span> Un recorrido · 5 paradas</div>
       </div>
       <div class="welcome-figure" aria-label="La mascota de Clarolab te acompaña durante el recorrido">
         <div class="figure-orbit orbit-one"></div>
@@ -45,20 +43,13 @@
       <div class="intro">
         <div class="eyebrow">RECORRIDO INTERACTIVO · CLAROLAB</div>
         <h1 id="hero-title">La puerta se abre. <span>Empieza el recorrido.</span></h1>
-        <p id="scannerDescription">Apuntá la cámara a cualquiera de las imágenes de la puerta o la mascota. Cada marcador revela una parte del
-          trabajo de Clarolab.</p>
+        <p id="scannerDescription">Acercate a cualquier imagen de la puerta, la mascota o los paisajes. Todas activan el mismo recorrido.</p>
       </div>
 
       <div class="entry-controls" aria-label="Iniciar el recorrido del museo">
-        <span class="target-summary"><b id="trackerName">PUERTA + MASCOTA</b><span id="trackerCount">23 marcadores en un solo escaneo</span></span>
-        <div class="tracker-choice" role="group" aria-label="Elegí qué imágenes escanear">
-          <button type="button" class="tracker-option active" data-tracker="door" aria-pressed="true">Puerta y mascota</button>
-          <button type="button" class="tracker-option" data-tracker="walk" aria-pressed="false">Paisajes y puerta</button>
-        </div>
-        <button id="startAR" class="primary-button" type="button">Iniciar el recorrido <span
+        <button id="startAR" class="primary-button" type="button">Iniciar recorrido <span
             aria-hidden="true">↗</span></button>
-        <p class="entry-note" id="entryNote">Al iniciar, permití el uso de la cámara. MindAR buscará todos los
-          marcadores de la puerta y la mascota en un único recorrido. Necesitás HTTPS o localhost.</p>
+        <p class="entry-note" id="entryNote">Permití el uso de la cámara. Cualquier imagen de la puerta, la mascota o los paisajes activa el mismo recorrido. Necesitás HTTPS o localhost.</p>
       </div>
       <aside class="qr-card" aria-label="QR de acceso al museo">
         <strong>QR DE ACCESO</strong>
@@ -125,7 +116,7 @@
             <span id="arChapter">01 / 05</span>
             <button id="nextExhibit" type="button" aria-label="Capítulo siguiente">→</button>
           </div>
-          <div class="ar-drag-hint">Arrastrá para girar y encuadrar</div>
+          <div class="ar-drag-hint">Deslizá ↑↓ para avanzar · ↔ para girar</div>
         </div>
       </div>
 
@@ -141,8 +132,7 @@
         <span data-index="01" class="active">01</span><span data-index="02">02</span><span
           data-index="03">03</span><span data-index="04">04</span><span data-index="05">05</span>
       </nav>
-      <div class="interaction-hint"><span class="drag-icon">◎</span><span>Mové la cámara entre todos los
-          marcadores</span></div>
+      <div class="interaction-hint"><span class="drag-icon">◎</span><span>Arrastrá para recorrer las paradas</span></div>
       <div class="bottom-bar"><span><b>CLAROLAB</b> · PUERTAS ABIERTAS</span><a class="explore" href="#coleccion">Ver
           los capítulos ↓</a></div>
     </section>
@@ -153,8 +143,7 @@
           <div class="eyebrow">LO QUE VAS A DESCUBRIR</div>
           <h2>Ideas que se convierten en software mejor.</h2>
         </div>
-        <p>Clarolab acompaña a sus aliados a desarrollar y probar productos de software. Cada marcador de la puerta abre
-          una parte de ese trabajo: aprender el producto, crear soluciones y mejorar continuamente.</p>
+        <p>Clarolab acompaña a sus aliados a desarrollar y probar productos de software. Las imágenes activan el recorrido completo: cinco paradas para conocer ese trabajo.</p>
       </div>
       <div class="collection-grid">
         <article class="collection-item"><small>01 — DESARROLLO</small>
@@ -180,8 +169,7 @@
         </article>
         <article class="collection-item mascot-item"><small>+ UNA GUÍA PARA EL CAMINO</small>
           <h3>La curiosidad también se comparte</h3>
-          <p>La mascota cambia de look a medida que avanzás. En cada marcador, aparece para señalar que hay un nuevo
-            capítulo.</p>
+          <p>La mascota te acompaña mientras avanzás. Cada parada abre una nueva parte del recorrido.</p>
           <img src="./images/img-utiles/tetris.gif" alt="Animación de Tetris de Clarolab" loading="lazy">
         </article>
       </div>
@@ -191,20 +179,16 @@
 
   <script>
     const exhibits = [
-      { group: 0, category: 'DESARROLLO', title: 'Software con propósito', copy: 'Clarolab desarrolla productos junto a sus aliados, con equipos integrados y soluciones pensadas alrededor de cada producto. Trabaja con tecnologías como React, Spring Boot, microservicios y Python, y explora soluciones de IA.' },
-      { group: 1, category: 'TESTING', title: 'Calidad en cada paso', copy: 'Pruebas automatizadas y manuales ayudan a encontrar problemas temprano. Cypress, pruebas de API y Jest se combinan con integración continua, rendimiento y triage para dar confianza en cada entrega.' },
-      { group: 2, category: 'SEGURIDAD', title: 'Confianza desde el código', copy: 'El análisis estático y dinámico permite detectar vulnerabilidades y entender los riesgos del producto para construir prácticas de seguridad sostenibles.' },
-      { group: 3, category: 'LAB CREATION', title: 'Explorar lo que viene', copy: 'LabCreation prueba tecnologías, desarrolla capacidades de ingeniería y transfiere resultados de I+D a los aliados para convertir aprendizaje en soluciones.' },
-      { group: 4, category: 'CUSTOMER JOURNEY', title: 'Crecer codo a codo', copy: 'Clarolab aprende cada producto y acompaña a sus aliados con equipos estables, crecimiento compartido y una cultura que busca generar un impacto positivo.' }
+      { group: 0, category: 'DESARROLLO', title: 'Ideas que se vuelven software', copy: 'Clarolab crea y mejora productos digitales junto a los equipos que los usan.' },
+      { group: 1, category: 'TESTING', title: 'Probar para avanzar', copy: 'Personas y herramientas encuentran errores antes de que lleguen a quienes usan el producto.' },
+      { group: 2, category: 'SEGURIDAD', title: 'Cuidar lo que construimos', copy: 'El equipo busca riesgos y ayuda a proteger cada producto desde el código.' },
+      { group: 3, category: 'LAB CREATION', title: 'Curiosidad en acción', copy: 'En su laboratorio exploran tecnología y convierten lo aprendido en nuevas soluciones.' },
+      { group: 4, category: 'CUSTOMER JOURNEY', title: 'Un equipo que acompaña', copy: 'Clarolab conoce cada producto y crece codo a codo con sus aliados.' }
     ];
 
-    const trackers = {
-      door: { src: './images/clarolab-all.mind', count: 23, name: 'puerta y mascota' },
-      walk: { src: './images/targets-caminata.mind', count: 5, name: 'paisajes y puerta' }
-    };
-    let activeTracker = 'door';
-    let activeMarkerCount = trackers.door.count;
-    let activeMarkerName = trackers.door.name;
+    const mindSource = './images/clarolab-museo.mind';
+    const activeMarkerCount = 28;
+    const activeMarkerName = 'la puerta, la mascota o los paisajes';
 
     AFRAME.registerComponent('helix-spine', {
       init() {
@@ -235,11 +219,31 @@
           card.setAttribute('scale', '.001 .001 .001');
           card.setAttribute('animation__arrive', `property: scale; from: .001 .001 .001; to: 1 1 1; dur: 650; delay: ${180 + i * 130}; easing: easeOutBack`);
         });
+        if (!this.el.parentElement.querySelector('.mascot-marker')) {
+          [0.13, 0.38, 0.63, 0.88].forEach((t, i) => {
+            const angle = t * turns * Math.PI * 2 + .5;
+            const x = Math.cos(angle) * (radius + .38);
+            const y = (t - .5) * height;
+            const z = Math.sin(angle) * (radius + .38);
+            const mascot = document.createElement('a-plane');
+            mascot.classList.add('mascot-marker');
+            mascot.setAttribute('width', '.28');
+            mascot.setAttribute('height', '.28');
+            mascot.setAttribute('position', `${x} ${y} ${z}`);
+            mascot.setAttribute('rotation', `0 ${(-angle - Math.PI / 2) * 180 / Math.PI} 0`);
+            mascot.setAttribute('material', `src: ./images/img-utiles/${[2, 5, 8, 11][i]}.png; shader: flat; transparent: true; side: double`);
+            mascot.setAttribute('animation__arrive', `property: scale; from: .001 .001 .001; to: 1 1 1; dur: 520; delay: ${500 + i * 180}; easing: easeOutBack`);
+            mascot.setAttribute('animation__float', `property: position; to: ${x} ${y + .09} ${z}; dir: alternate; dur: 1900; easing: easeInOutSine; loop: true`);
+            this.el.parentElement.appendChild(mascot);
+          });
+        }
       }
     });
 
     const scene = document.querySelector('a-scene');
     const rig = document.getElementById('museumRig');
+    // Each target has a copy of the spiral, so all copies must follow the same chapter and gesture.
+    const museumRigs = [rig];
     const camera = document.getElementById('museumCamera');
     const trackingTarget = document.getElementById('trackingTarget');
     const sceneWrap = document.getElementById('sceneWrap');
@@ -249,6 +253,7 @@
     const arStatus = document.getElementById('arStatus');
     let selected = 0;
     let dragStart = null;
+    let verticalDragStep = 0;
     let baseRotation = 0;
     let arActive = false;
     let arStarting = false;
@@ -260,21 +265,34 @@
     let mascotTimer = 0;
     const guideMascot = document.getElementById('guideMascot');
 
-    function selectExhibit(index, markerIndex = index) {
+    function selectExhibit(index) {
       selected = (index + exhibits.length) % exhibits.length;
       const exhibit = exhibits[selected];
       document.getElementById('detail-period').textContent = `${String(selected + 1).padStart(2, '0')} / ${exhibit.category}`;
-      document.getElementById('detail-year').textContent = `MARCADOR ${String(markerIndex + 1).padStart(2, '0')} / ${String(activeMarkerCount).padStart(2, '0')}`;
+      document.getElementById('detail-year').textContent = 'UN RECORRIDO · CINCO PARADAS';
       document.getElementById('detail-title').textContent = exhibit.title;
       document.getElementById('detail-copy').textContent = exhibit.copy;
       document.getElementById('arChapter').textContent = `${String(selected + 1).padStart(2, '0')} / ${String(exhibits.length).padStart(2, '0')}`;
+      const panel = document.querySelector('.detail-card');
+      panel.classList.remove('is-changing');
+      void panel.offsetWidth;
+      panel.classList.add('is-changing');
       document.querySelectorAll('.scene-index span').forEach((item, i) => item.classList.toggle('active', i === exhibit.group));
-      document.querySelectorAll('.artifact').forEach((card, i) => {
-        card.setAttribute('animation__focus', `property: scale; to: ${i === exhibit.group ? '1.12 1.12 1.12' : '1 1 1'}; dur: 420; easing: easeOutBack`);
+      museumRigs.forEach((museumRig) => {
+        museumRig.querySelectorAll('.artifact').forEach((card, i) => {
+          card.setAttribute('animation__focus', `property: scale; to: ${i === exhibit.group ? '1.12 1.12 1.12' : '1 1 1'}; dur: 420; easing: easeOutBack`);
+        });
       });
-      // Girar el espiral coloca el capítulo elegido de frente y evita que quede fuera del encuadre.
-      const angle = (selected / (document.querySelectorAll('.artifact').length - 1)) * 2.7 * 360 - 90;
-      rig.setAttribute('rotation', `0 ${-angle} 0`);
+      const theta = (selected / (exhibits.length - 1)) * 2.7 * Math.PI * 2 + .5;
+      baseRotation = (-90 - theta * 180 / Math.PI + 360) % 360;
+      museumRigs.forEach((museumRig) => {
+        const card = museumRig.querySelectorAll('.artifact')[selected];
+        const scale = museumRig.object3D.scale.y || 1;
+        const cardY = Number(card.getAttribute('position')?.y) || 0;
+        museumRig.setAttribute('animation__travel', `property: position; to: 0 ${-cardY * scale} 0; dur: 520; easing: easeInOutCubic`);
+        museumRig.setAttribute('animation__turn', `property: rotation; to: 0 ${baseRotation} 0; dur: 520; easing: easeInOutCubic`);
+        card.setAttribute('rotation', `0 ${-baseRotation} 0`);
+      });
       setMascotFrame(selected);
     }
 
@@ -301,6 +319,7 @@
           const rigCopy = baseRig.cloneNode(true);
           [rigCopy, ...rigCopy.querySelectorAll('[id]')].forEach((node) => node.removeAttribute('id'));
           anchor.appendChild(rigCopy);
+          museumRigs.push(rigCopy);
           scene.appendChild(anchor);
           trackingAnchors.push(anchor);
         }
@@ -317,6 +336,7 @@
     function clearDoorAnchors() {
       trackingAnchors.slice(1).forEach((anchor) => anchor.remove());
       trackingAnchors.length = 0;
+      museumRigs.length = 1;
       trackingTarget.removeAttribute('mindar-image-target');
     }
 
@@ -340,7 +360,7 @@
         return;
       }
       new QRCode(qrCode, { text: currentAccessUrl(), width: 128, height: 128, colorDark: '#06110d', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
-      qrHint.textContent = 'Escaneá para abrir el recorrido completo: puerta y mascota.';
+      qrHint.textContent = 'Escaneá para abrir el recorrido completo.';
     }
 
     async function openAR() {
@@ -353,10 +373,7 @@
         return;
       }
       if (!scene.hasLoaded) await new Promise((resolve) => scene.addEventListener('loaded', resolve, { once: true }));
-      const tracker = trackers[activeTracker];
-      activeMarkerCount = tracker.count;
-      activeMarkerName = tracker.name;
-      const source = tracker.src;
+      const source = mindSource;
       sceneWrap.classList.add('active');
       scannerSection.classList.add('ar-mode');
       document.body.classList.add('ar-session');
@@ -365,7 +382,7 @@
       camera.setAttribute('position', '0 0 0');
       rig.setAttribute('scale', '.36 .36 .36');
       window.dispatchEvent(new Event('resize'));
-      arStatus.textContent = 'Preparando el target…';
+      arStatus.textContent = 'Preparando el recorrido…';
       document.getElementById('startAR').disabled = true;
       try {
         scene.setAttribute('mindar-image', {
@@ -378,8 +395,10 @@
           maxTrack: 1
         });
         prepareDoorAnchors();
+        museumRigs.forEach((museumRig) => museumRig.setAttribute('scale', '.36 .36 .36'));
+        selectExhibit(selected);
         scene.addEventListener('arReady', () => {
-          arStatus.textContent = 'Cámara lista · apuntá a cualquier imagen de la puerta o la mascota';
+          arStatus.textContent = 'Cámara lista · acercate a cualquier imagen para ver el recorrido';
         }, { once: true });
         scene.addEventListener('arError', (event) => {
           const reason = event.detail?.error?.message || event.detail?.error || '';
@@ -392,7 +411,7 @@
         arStarted = true;
         arActive = true;
         document.getElementById('closeAR').focus({ preventScroll: true });
-        arStatus.textContent = `Cámara activa · buscá cualquiera de los ${activeMarkerCount} marcadores de ${activeMarkerName.toLowerCase()}.`;
+        arStatus.textContent = `Cámara activa · acercate a cualquier imagen de ${activeMarkerName}.`;
       } catch (error) {
         console.error('No se pudo iniciar MindAR:', error);
         const message = String(error?.message || error || '');
@@ -415,7 +434,7 @@
           document.getElementById('startAR').disabled = false;
           sceneWrap.classList.toggle('active', !userClosedWhileStarting);
           camera.setAttribute('position', '0 0 6.6');
-          rig.setAttribute('scale', '1 1 1');
+          museumRigs.forEach((museumRig) => museumRig.setAttribute('scale', '1 1 1'));
           window.dispatchEvent(new Event('resize'));
           closeRequested = false;
         }
@@ -424,12 +443,11 @@
 
     function onTargetFound(index) {
       activeTargetIndex = index;
-      arStatus.textContent = `${activeMarkerName} · marcador ${String(index + 1).padStart(2, '0')} detectado`;
-      selectExhibit(index % exhibits.length, index);
+      arStatus.textContent = 'Recorrido activo · deslizá hacia arriba o abajo para avanzar';
     }
 
     function onTargetLost(index) {
-      if (index === activeTargetIndex) arStatus.textContent = `Buscando el próximo marcador de ${activeMarkerName.toLowerCase()}…`;
+      if (index === activeTargetIndex) arStatus.textContent = 'La experiencia sigue disponible al acercarte a otra imagen';
     }
 
     async function closeAR() {
@@ -450,7 +468,11 @@
       scannerSection.classList.remove('ar-mode');
       document.body.classList.remove('ar-session');
       camera.setAttribute('position', '0 0 6.6');
-      rig.setAttribute('scale', '1 1 1');
+      museumRigs.forEach((museumRig) => {
+        museumRig.setAttribute('scale', '1 1 1');
+        museumRig.setAttribute('position', '0 0 0');
+        museumRig.setAttribute('rotation', '0 0 0');
+      });
       window.dispatchEvent(new Event('resize'));
       closeRequested = false;
       document.getElementById('startAR').disabled = false;
@@ -462,24 +484,6 @@
     }));
     document.getElementById('startAR').addEventListener('click', openAR);
     document.getElementById('closeAR').addEventListener('click', closeAR);
-    document.querySelectorAll('.tracker-option').forEach((button) => button.addEventListener('click', () => {
-      if (arActive || arStarting) return;
-      activeTracker = button.dataset.tracker;
-      const tracker = trackers[activeTracker];
-      activeMarkerCount = tracker.count;
-      activeMarkerName = tracker.name;
-      document.querySelectorAll('.tracker-option').forEach((option) => {
-        const active = option === button;
-        option.classList.toggle('active', active);
-        option.setAttribute('aria-pressed', String(active));
-      });
-      document.getElementById('trackerName').textContent = activeTracker === 'door' ? 'PUERTA + MASCOTA' : 'PAISAJES + PUERTA';
-      document.getElementById('trackerCount').textContent = `${tracker.count} marcadores en un solo escaneo`;
-      document.getElementById('entryNote').textContent = `Al iniciar, permití el uso de la cámara. MindAR buscará las imágenes de ${tracker.name} en un único recorrido. Necesitás HTTPS o localhost.`;
-      document.getElementById('scannerDescription').textContent = activeTracker === 'door'
-        ? 'Apuntá la cámara a cualquiera de las imágenes de la puerta o la mascota. Cada marcador revela una parte del trabajo de Clarolab.'
-        : 'Apuntá la cámara a los paisajes o a la puerta. Cada imagen abre una parte del recorrido de Clarolab.';
-    }));
     document.getElementById('previousExhibit').addEventListener('click', () => selectExhibit(selected - 1));
     document.getElementById('nextExhibit').addEventListener('click', () => selectExhibit(selected + 1));
     mascotTimer = window.setInterval(() => setMascotFrame(mascotFrame), 5200);
@@ -492,14 +496,24 @@
       });
       const canvas = scene.canvas;
       canvas.addEventListener('pointerdown', (event) => {
-        dragStart = { x: event.clientX, y: event.clientY, rotation: baseRotation };
+        dragStart = { x: event.clientX, y: event.clientY, rotation: baseRotation, selected };
+        verticalDragStep = 0;
         canvas.setPointerCapture?.(event.pointerId);
       });
       canvas.addEventListener('pointermove', (event) => {
         if (!dragStart) return;
-        const delta = event.clientX - dragStart.x;
-        baseRotation = dragStart.rotation + delta * .35;
-        rig.setAttribute('rotation', `0 ${baseRotation} 0`);
+        const deltaX = event.clientX - dragStart.x;
+        const deltaY = event.clientY - dragStart.y;
+        if (Math.abs(deltaY) > 28) {
+          const step = Math.trunc(deltaY / 56);
+          if (step !== verticalDragStep) {
+            verticalDragStep = step;
+            selectExhibit(dragStart.selected - step);
+          }
+        } else if (Math.abs(deltaX) > 4) {
+          baseRotation = dragStart.rotation + deltaX * .35;
+          museumRigs.forEach((museumRig) => museumRig.setAttribute('rotation', `0 ${baseRotation} 0`));
+        }
       });
       const release = () => { dragStart = null; };
       canvas.addEventListener('pointerup', release);
