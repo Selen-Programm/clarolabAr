@@ -162,6 +162,7 @@ a-scene {
 
 a-scene canvas {
   touch-action: none;
+  pointer-events: none;
   background: transparent !important;
 }
 

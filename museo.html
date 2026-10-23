@@ -26,7 +26,7 @@
         <div class="eyebrow">CLAROLAB · JUNÍN, ARGENTINA</div>
         <h1 id="welcome-title">Una puerta. <span>Muchas formas de crear.</span></h1>
         <p>Un recorrido interactivo por Clarolab. Acercate a la puerta, a los paisajes o a la mascota y descubrí cómo el equipo crea, prueba y protege software.</p>
-        <a class="primary-button welcome-cta" href="#recorrido">Conocer el recorrido <span
+        <a class="primary-button welcome-cta" href="#recorrido">Recorrer <span
             aria-hidden="true">↓</span></a>
         <div class="welcome-caption"><span class="pulse-dot"></span> Un recorrido · 5 paradas</div>
       </div>
@@ -38,7 +38,7 @@
       </div>
       <div class="welcome-index"><span>01</span> / BIENVENIDA</div>
     </section>
-
+<!-- Problemas con el carrousel de fondo -->
     <section class="hero" id="recorrido" aria-labelledby="hero-title">
       <div class="intro">
         <div class="eyebrow">RECORRIDO INTERACTIVO · CLAROLAB</div>
@@ -47,7 +47,7 @@
       </div>
 
       <div class="entry-controls" aria-label="Iniciar el recorrido del museo">
-        <button id="startAR" class="primary-button" type="button">Iniciar recorrido <span
+        <button id="startAR" class="primary-button" type="button">Iniciar <span
             aria-hidden="true">↗</span></button>
         <p class="entry-note" id="entryNote">Permití el uso de la cámara. Cualquier imagen de la puerta, la mascota o los paisajes activa el mismo recorrido. Necesitás HTTPS o localhost.</p>
       </div>
@@ -132,7 +132,7 @@
         <span data-index="01" class="active">01</span><span data-index="02">02</span><span
           data-index="03">03</span><span data-index="04">04</span><span data-index="05">05</span>
       </nav>
-      <div class="interaction-hint"><span class="drag-icon">◎</span><span>Arrastrá para recorrer las paradas</span></div>
+      <div class="interaction-hint"><span class="drag-icon">◎</span><span>Recorrido automático</span></div>
       <div class="bottom-bar"><span><b>CLAROLAB</b> · PUERTAS ABIERTAS</span><a class="explore" href="#coleccion">Ver
           los capítulos ↓</a></div>
     </section>
@@ -242,7 +242,7 @@
 
     const scene = document.querySelector('a-scene');
     const rig = document.getElementById('museumRig');
-    // Each target has a copy of the spiral, so all copies must follow the same chapter and gesture.
+    // Each targn  et has a copy of the spiral, so all copies must follow the same chapter and gesture.
     const museumRigs = [rig];
     const camera = document.getElementById('museumCamera');
     const trackingTarget = document.getElementById('trackingTarget');
@@ -252,8 +252,6 @@
     const qrHint = document.getElementById('qrHint');
     const arStatus = document.getElementById('arStatus');
     let selected = 0;
-    let dragStart = null;
-    let verticalDragStep = 0;
     let baseRotation = 0;
     let arActive = false;
     let arStarting = false;
@@ -262,7 +260,7 @@
     let activeTargetIndex = 0;
     const trackingAnchors = [];
     let mascotFrame = 6;
-    let mascotTimer = 0;
+    let previewTimer = 0;
     const guideMascot = document.getElementById('guideMascot');
 
     function selectExhibit(index) {
@@ -486,51 +484,15 @@
     document.getElementById('closeAR').addEventListener('click', closeAR);
     document.getElementById('previousExhibit').addEventListener('click', () => selectExhibit(selected - 1));
     document.getElementById('nextExhibit').addEventListener('click', () => selectExhibit(selected + 1));
-    mascotTimer = window.setInterval(() => setMascotFrame(mascotFrame), 5200);
+    previewTimer = window.setInterval(() => {
+      if (!arActive && !document.hidden) selectExhibit(selected + 1);
+    }, 4800);
     refreshQr();
 
     function attachPreviewControls() {
-      document.querySelectorAll('.artifact').forEach((card, index) => {
-        card.addEventListener('click', () => selectExhibit(exhibits.findIndex((item) => item.group === index)));
-        card.querySelectorAll('a-plane').forEach((plane) => plane.classList.add('clickable'));
-      });
-      const canvas = scene.canvas;
-      canvas.addEventListener('pointerdown', (event) => {
-        dragStart = { x: event.clientX, y: event.clientY, rotation: baseRotation, selected };
-        verticalDragStep = 0;
-        canvas.setPointerCapture?.(event.pointerId);
-      });
-      canvas.addEventListener('pointermove', (event) => {
-        if (!dragStart) return;
-        const deltaX = event.clientX - dragStart.x;
-        const deltaY = event.clientY - dragStart.y;
-        if (Math.abs(deltaY) > 28) {
-          const step = Math.trunc(deltaY / 56);
-          if (step !== verticalDragStep) {
-            verticalDragStep = step;
-            selectExhibit(dragStart.selected - step);
-          }
-        } else if (Math.abs(deltaX) > 4) {
-          baseRotation = dragStart.rotation + deltaX * .35;
-          museumRigs.forEach((museumRig) => museumRig.setAttribute('rotation', `0 ${baseRotation} 0`));
-        }
-      });
-      const release = () => { dragStart = null; };
-      canvas.addEventListener('pointerup', release);
-      canvas.addEventListener('pointercancel', release);
-      canvas.addEventListener('wheel', (event) => {
-        if (arActive) return;
-        event.preventDefault();
-        const direction = Math.sign(event.deltaY);
-        camera.object3D.position.z = Math.min(8, Math.max(4.8, camera.object3D.position.z + direction * .22));
-      }, { passive: false });
-      document.querySelector('.scene-index').addEventListener('click', (event) => {
-        const dot = event.target.closest('[data-index]');
-        if (dot) {
-          const group = Number(dot.dataset.index) - 1;
-          selectExhibit(exhibits.findIndex((item) => item.group === group));
-        }
-      });
+      // The hero is an automatic, non-interactive preview. AR navigation stays
+      // available through its dedicated chapter buttons.
+      document.querySelectorAll('.artifact a-plane').forEach((plane) => plane.classList.remove('clickable'));
     }
     if (scene.hasLoaded) attachPreviewControls();
     else scene.addEventListener('loaded', attachPreviewControls, { once: true });
